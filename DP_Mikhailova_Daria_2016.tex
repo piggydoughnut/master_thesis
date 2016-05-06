@@ -7,7 +7,7 @@
 
 \documentclass[thesis=M,english]{FITthesis}[2012/10/20]
 
-% \usepackage[utf8]{inputenc} % LaTeX source encoded as UTF-8
+\usepackage[utf8]{inputenc} % LaTeX source encoded as UTF-8
 % \usepackage[latin2]{inputenc} % LaTeX source encoded as ISO-8859-2
 % \usepackage[cp1250]{inputenc} % LaTeX source encoded as Windows-1250
 
@@ -19,7 +19,6 @@
 \usepackage{dirtree} %directory tree visualisation
 
 \usepackage{listings}
-
 % % list of acronyms
 % \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
 % \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
@@ -88,26 +87,42 @@
 \setsecnumdepth{part}
 \chapter{Introduction}
 
+The rapid usage growth of messaging apps over the past several years can only be described as astronomic. Currently mobile messaging applications are offering so much more than just simple messaging and media exchange. Some of them connect users with brands, bring news and even let you shop through them. Messaging apps's user base is outweighing the most popular social networks.\cite{BI-apps} As you can see on figure \ref{fig:apps}, which compares WhatsApp, Facebook Messenger, WeChat and Viber to Facebook, Linkedin, Twitter and Instagram. The scale is in billions of users.\cite{hubspot}
 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{assets/messaging_apps.png}}
+	\caption{Messaging apps have surpassed social networks \\ Source: \cite{BI-apps}	}
+	\label{fig:apps}
+\end{figure}
+
+All of the mentioned above makes messaging applications and social networks a vital part of our life. Nevertheless the rapid growth in functionality let's not forget their main aim. The main aim of both types is to connect people and  let them exchange messages in a cheap and easy way. Both messaging application and social network fulfil this goal very well. However there is a certain communication gap which has not been addressed yet.
+
+We use messaging applications and social media to communicate with people we already know. We become highly suspicious when it comes to meeting new people in the case we do not have any friends in common. Let's use Facebook as an example. To be honest Facebook was not created for connecting with strangers and its main purpose is to stay connected with your friends and family. The old superstition that many people online, who are not your acquaintances, are not who they pretend to be is still on. So how do we meet new people online? Facebook offers many interest clubs and event pages where we come in contact with people we do not know, but hardly any meetings or friendships arise from that. Internet also offers old school forums and communities where people talk about their common interests such as movies or music. But in case you just want to meet someone not based on your interest, just a random person the only way to do it is via a dating site. You have to sign up for a dating website or download an app such as Tinder. There are many people on dating sites who are just looking for friends and not long life partners. In the wide circles looking for friends on dating websites is considered slightly strange. If you are extravert enough you can just meet people on the street or in the bus. But what do you do when you are in a foreign country? What do you do when you are just wandering around looking for a company to do some sightseeing? What if you just really liked this museum and want to find so-thinking people without the whole going extremely public about it?
+
+Meet the GPS pinned messaging application. The idea is very simple. Usual messaging applications require the communicating parties to identify themselves with each other, either using their phone numbers or emails. This creates a certain barrier in communication. People are not that interested or afraid of just chatting with strangers online since in order to do so they have to reveal a lot of their personal information to the other party. The GPS pinned messaging application does not require any details from the other party in order to communicate. Imagine you are travelling and you just moved in a hotel. You do not know anyone in the city and would like to have a company for the sightseeing. In this case you just leave a message right on the GPS location of your room and everyone in the hotel would see it, since they would be within a short reach o your GPS location. Anyone could answer your message and probably very quickly you will manage to find yourself a company for the walk in the city.
+
+GPS messaging application allows a user to leave messages pinned to GPS location anywhere. It could be a review message saying how much someone liked a certain gallery or a message warning fellow travellers of scams or robberies happening in the area. University students could exchange messages with the whole lecture hall during the lecture. The only way to read such a message is to be within short distance of it. You cannot read the message if you are far away. This makes messaging a quest, when you go through the city with new messages appearing on the map. This brings freedom in messaging. It is almost the same as you would go and directly talk to someone. This messaging style leaves out all the unnecessary information which you have on the social networks, it keeps the users identity private and therefore you do not know complete biography of a person before talking to them. And most importantly it allows you to interact with anyone who is within your GPS reach. It is private and public at the same time, limited by location and messages validity only.
 
 \setsecnumdepth{all}
 \chapter{Requirements}
 \section{Messaging application}
 
-Usual messaging applications require the communicating parties to identify themselves with each other, either using their phone numbers or emails. The GPS pinned application does not require any details from the other party in order to communicate. The idea is very simple. Imagine you are travelling and you just moved in a hotel. You do not know anyone in the city and would like to have a company for the sightseeing. In this case you just leave a message right in your room and everyone in the hotel would see it, since they would be within a short reach o your GPS location. Anyone could answer your message and probably very quickly you will manage to find yourself a company for the walk in the city.
+The main goal is to create a messaging application which will allow users to pin messages to GPS location. There will be two types of messages. Firstly users will post simple text messages with an option of attaching a picture. Secondly users are able to post a 3D object. Both types of messages are comment-able. Each posted message can have a validity from 1 day up to 365 days. Users are only able to read a message once they arrive at its GPS location. The user will be able to browse through his messages and in case someone commented on his message he will be notified of it.
 
-The main goal is to create a messaging application which will allow users to pin messages to GPS location. There will be two types of messages. Firstly users will post simple text messages with an option of attaching a picture. Secondly users are able to post a 3D object. Both types of messages are commentable. Each posted message can have a validity from 1 hour up to infinity. Users are only able to read a message once they arrive at its GPS location. Once the user reads the message he can later comment on it even though he/she is not within the message's GPS reach. Read messages are added to user's list of messages and he can get back later to them. The user will be notified in case someone commented on his message or any of the messages he commented on received a new comment.
+This application serves as a real time companion. There is no overload of information you do not want to see at the moment as you have when scrolling through social media feeds. The app serves you relevant and fresh information left by other users based on your current location.
 
 \section{Functional requirements}
 
 \begin{enumerate}
 \item{Registration}
 
-User can register using their email and password or sign in through Facebook.
+User can register using their email and password.
 
 \item{Authentication}
 
-Users will be authenticated through tokens using OAuth protocol. Authentication through Facebook with OpenID protocol will also be available.
+Users will be authenticated through tokens using OAuth 2 protocol. 
 
 \item{Leave a message}
 
@@ -115,7 +130,7 @@ The user is able to leave a message pinned to his/her GPS location. There is an 
 
 \item{Leaving a 3D object}
 
-The user is able to leave a 3D object pinned to his/her GPS location. The user can choose a 3D object from the gallery of object or upload their own object following the instructions on the web.
+The user is able to leave a 3D object pinned to his/her GPS location. The user can choose a 3D object from the gallery of objects or upload their own object following the instructions on the web.
 
 \item{Read a message}
 
@@ -125,18 +140,17 @@ The user is able to read a message only once he/she is close to its GPS location
 
 The user is able to comment any message he has stumbled upon.
 
-\item{User gets notifications about messages}
+\item{User browses through his messages}
 
-When the user is in the certain radius of the message he will get a notification on his mobile about it
+The user will be able to browse through a list of the messages he posted and see how many people viewed the message and whether there are any new comments since the last time he viewed the message.
 
 \item{View statistics}
 
-Users can view statistics of their messages, how often it has been read, how many replies.
-Admin users can also view general statistics, which areas are popular, which messages in which areas get replies and which do not. Possible analysis of message content, what users like, what they reply on.
+Users can view statistics of their messages, for instance how many times the message has been viewed and how many comments were left. There will also be general statistics for everyone showing popularity of different countries by the amount of message.
 
 \item{View and change user details}
 
-The user has a choice of either showing details about himself or not. The only compulsory public detail is username.
+The user has a choice of either showing details about himself or not. The only compulsory public detail is username. The detail which can be shared with other is user's country.
 
 \end{enumerate}
 
@@ -152,42 +166,32 @@ There must be short response time for server requests.
 
 The application should not consume too much battery power in both active and idle modes.
 
-\item{Usability}
-
-User friendly interface in IOS style so the users know how to use the application intuitively.
-
 \item{Recoverability}
 
-should be able to recover fast in case of server crash or any other fails
+Should be able to recover fast in case of server crash or any other failures.
 
 \item{Data Integrity}
 
-the messaging and other data has to be consistent in any situation.
-
-\item{Reliability}
-
-the application should be able to take care of spam.
+The messaging and other data has to be consistent in any situation.
 
 \item{Documentation}
 
-extensive and detailed documentation must be provided
+Extensive and detailed documentation must be provided.
 
 \item{Extensibility}
 
-the application should be created using technologies that it would be easy to extend and create new features in the future
+The application should be created using technologies that it would be easy to extend and create new features in the future.
 
 \item{Scalability}
 
-the application needs to be able to cope with a growing amount of requests 
+The application needs to be able to cope with a growing amount of requests.
 \end{enumerate}
 
 \chapter{Analysis and design}
 \section{Technology used}
 \subsection{Node.js}
 
-Node.js is a runtime environment, it is open source and cross-platform, most of it is written in Javascript. Node.js REST API web server will be implemented to serve as a backend for both mobile and web applications.
-
-Node.js uses non blocking event-driven I/O to remain flexible and lightweight when faced with intensive real-time application with high data transfer demands.\cite{why-node} The non blocking part means that commands are executed in parallel and they use callbacks to signal completion. For instance in a blocking language such as PHP, the command executes only after previous command has finished running.\cite{node-benefits} Node should not be used for heavy computations, since it will eliminate all of its benefits. Node manipulates with one thread. Therefore resource consuming computations can clog the thread and prevent other requests from being processed. It is best used for creating fast, scalable network applications, since its biggest advantage is its ability to handle a massive number of simultaneous connections. Another massive advantage of Node.js is built in support for package management using NPM tool. NPM provides the developer with a set of reusable components which are easily installed and used in the project. It is one of the largest set of open source libraries.\cite{nodejs}
+Node.js is open source and cross-platform runtime environment with most of it being written in Javascript. Node.js uses non blocking event-driven I/O to remain flexible and lightweight when faced with intensive real-time application with high data transfer demands.\cite{why-node} The non blocking part means that some commands, such as reading from a file, are delegated and executed in parallel and they use callbacks to signal completion. For instance in a blocking language such as PHP, the command executes only after previous command has finished running.\cite{node-benefits} Node should not be used for heavy computations, since it will eliminate all of its benefits. Node manipulates with one thread. Therefore resource consuming computations can clog the thread and prevent other requests from being processed. It is best used for creating fast, scalable network applications, since its biggest advantage is its ability to handle a massive number of simultaneous connections. Another massive advantage of Node.js is built in support for package management using NPM tool. NPM provides the developer with a set of reusable components which are easily installed and used in the project. It is one of the largest set of open source libraries.\cite{nodejs}
 
 The way Node.js works is demonstrated on figure \ref{fig:nodejs}. The whole action of Node.js happens in the Event loop. Event loop is a set of events defined in your application which node is waiting for to be fired. Once an application sends a request, an event is fired and is placed in the event queue. Event loop picks up the event  and processes it. In the case that the event is blocking such (e.g. image reading) it passes its processing to one of its worker threads from its own worker thread pool. When the worker is finished processing the event, it returns the response using a callback which was passed to it with the task. The result is passed to the application through Node.js bindings \cite{node-benefits}
 
@@ -211,7 +215,7 @@ The main advantages of running a node.js server:
 
 
 
-Figure \ref{fig:nodejsVsTraditional} shows a comparison of request processing on a node server and a traditional web server (e.g. web server Apache). On a traditional web server where for each request a new connection thread is created from a limited thread pool or the server waits for any of the working threads to finish so it can delegate the request to them. Many threads use a lot of RAM and the system eventually slows down or even crashes in case of a lot of requests.
+Figure \ref{fig:nodejsVsTraditional} shows a comparison of request processing on a node server and a traditional web server (e.g. web server Apache). On a traditional web server for each request a new connection thread is created from a limited thread pool or the server waits for any of the working threads to finish so it can delegate the request to them. Many threads use a lot of RAM and the system eventually slows down or even crashes in the case of a lot of requests.
 What Node.js does differently is it operates on a single-thread using non blocking I/O calls, which allows it to support a lot of simultaneous connections.
 Assume that each request-thread will demand 2MB of memory. Let's also assume that the server is running on an 8GB of RAM. This leaves us with a conclusion that when using a traditional web server it is capable of processing about 4000 simultaneous requests. Node.js in contrary is theoretically able to process over 1M simultaneous requests due to its scalability. \cite{why-node}
 
@@ -226,155 +230,365 @@ Assume that each request-thread will demand 2MB of memory. Let's also assume tha
 \subsection{React}
 React is a very flexible view layer written in javascript. 
 %http://developer.telerik.com/featured/introduction-to-the-react-javascript-framework/
-It has several advantages the main one being the way it is organised. It breaks down the application into components and makes it very easy to make changes without affecting other code. The components, each of them representing a single view (e.g. a button, form), can be reused for other applications since each component represents an independent part of the programme.
+It has many advantages over the existing ways of treating front-end, with the main one being the way it is organised. It breaks down the application into components and makes it very easy to make changes without affecting other code. The components, each of them representing a single view (e.g. a button, form), can be reused for other applications since each component represents an independent part of the programme. This also makes it easy to code and read code since looking at one file tells you how the whole part of the system functions. \cite{react-ant}
 
-It uses a declarative programming style. Declarative programming means we tell the machine what we want to see as the result and let it figure out how it should be done.
+It uses a declarative programming style. Declarative programming is when we tell the machine what we want to see as the result and let it figure out how it should be done. \cite{react-fb}
 
-React's way of creating application might not seem correct to many developers since it embeds css in javascript, which has been considered a bad practice throughout the past decade. Mixing markup with logic is what we have been always trying to avoid. However there are quite a few issues with CSS which React JS, due to its approach, solves without any hacks. For instance no need to worry about dependencies, dead code elimination, minification, isolations, etc. Moreover this approach allows us to create independent and easy to read component which can be changed at any time without worrying about affecting the rest of the application.
+React's way of creating application might not seem correct to many developers since it embeds css and html in javascript, which has been considered a bad practice throughout the past decade. Mixing markup with logic is what we have been always avoiding. However there are quite a few issues with CSS which React JS, due to its approach, solves without any hacks. For instance no need to worry about dependencies, dead code elimination, minification, isolations, etc. Moreover this approach allows us to create independent and easy to read components which can be changed at any time without worrying about affecting the rest of the application.
 
-One of the biggest advantages is the virtual DOM. React does not re-render the whole DOM every time you make a change. React creates a diff between the existing DOM and you changes and applies the patch to the existing DOM, changing only a part of it and saving loads of time.
+One of the biggest advantages is the virtual DOM. React does not re-render the whole DOM every time you make a change. React creates a diff between the existing DOM and your changes and applies the patch to the existing DOM, changing only a part of it and saving loads of time.
 
 Server rendering is another very important point. Server rendering allows to render the whole page on the server side (e.g. Node.js), which is faster and SEO-friendly. Both virtual DOM and server side rendering make React's performance very high.
 
 Furthermore React has good descriptive warnings which make the debugging process easy. Its declarative approach makes the code predictable and easier to understand. Therefore the learning curve is flat and developers start making changes with confidence faster. 
 
-React relies on unidirectional data flow. The data, called props in React, are passed from parent to child. When the props change the component is re-rendered in order to keep up to date with the application data changes. Also every component has its own private data called state.
+React relies on unidirectional data flow. The data, called props in React, are passed from parent to child. When the props change the component is re-rendered in order to keep up to date with the application data changes. Also every component has its own private data called state. \cite{react-ant}\cite{react-fb-native}\cite{react-telerik}
 
 \subsection{ReactNative}
 
 \subsubsection{Why not use Native?}
-%https://code.facebook.com/posts/1014532261909640/react-native-bringing-modern-web-techniques-to-mobile/
-The native mobile development is difficult and cumbersome. Firstly it is difficult to place different components of your app on the screen since you often need to compute exact positions of all of your views. Moreover every time the developer makes a change in the app they need to recompile the whole application, even if it is the smallest change, such as enlarging fontSize. This takes a lot of time from the development process and therefore slows down the whole development cycle. In case the developer wants to create a multi platform application, let's say for iOS, Android and Windows, they need to write the same application three times in three completely different languages. Apart from the need to learn specific platform implementation and principles, which are usually not reusable for other platforms, the developer also has to think about memory management, thread concurrency and deployment process. All these issues are important and bring a necessary overhead when developing native applications
+The native mobile development is difficult and cumbersome. Firstly it is difficult to place different components of your app on the screen since you often need to compute exact positions of all of your views. Moreover every time the developer makes a change in the app they need to recompile the whole application, even if it is the smallest change, such as enlarging fontSize. This takes a lot of time from the development process and slows down the whole development cycle. In the case the developer wants to create a multi platform application, let's say for iOS, Android and Windows, they need to write the same application three times in three completely different languages. Apart from the need to learn specific platform implementation and principles, which are usually not reusable for other platforms, the developer also has to think about memory management, thread concurrency and deployment process. All these issues are important and bring a necessary overhead when developing native applications
 
-Even though development of native applications is a lengthy and difficult process, there are reasons why it is worth it. One of the main reasons why developers go and make native apps is the access to mobile native functions which allow to create a better-feeling experience, such as UI components - date pickers, sliders, etc. This main feature of native development is reproduced in ReactNative as you can read further.
+Even though development of native applications is a lengthy and difficult process, there are reasons why it is worth it. One of the main reasons why developers go and make native apps is the access to mobile native functions which allow to create a better-feeling experience, such as UI components - date pickers, sliders, etc. This main feature of native development is reproduced in ReactNative as you can read further.\cite{react-fb-native}
 
 \subsubsection{Why ReactNative?}
 
-The GPS pinned mobile application will be implemented using React Native. It is the first JS framework which works with mobile's native functions directly, which is it's huge advantage.
+It is the JS framework which works with mobile's native functions directly, which is it's huge advantage.
 
-React Native runs the code using an interpreter and provides a native bridge to construct and fully interact with platform native elements. In comparison to React which renders divs and spans in the browser React Native renders native higher-level platform-specific components inside of an embedded instance of JavaScriptCore inside the application. It also allows to use CSS Flexbox which creates a better User Experience and an easier placement of the elements with no need for computing their position.
+React Native runs the code using an interpreter and provides a native bridge to construct and fully interact with platform's native elements. Just like React, which renders divs and spans in the browser React Native renders native higher-level platform-specific components inside of an embedded instance of JavaScriptCore in the application. It also allows to use CSS Flexbox which creates a better User Experience and an easier placement of the elements with no need for computing their position.
 
-Furthermore working with React is faster than with other platform native languages, since you do not have to recompile the whole app any time you make the tiniest change, you just refresh the application and view your changes straight away. Its very handy since it saves a lot of development time. React Native also provides us with the ability of parallelising the work, which increases the speed of the application.
+Furthermore working with React is faster than with other platform native languages, since you do not have to recompile the whole app any time you make the tiniest change, you just refresh the application and view your changes straight away. Its very handy and it saves a lot of development time. React Native also provides us with the ability of parallelising the work, which increases the speed of the application.
 
-This framework introduces a totally new approach for developing mobile apps and enforces a new principle: 'Learn once, write anywhere'. Facebook provides implementations and support both IOS and Android versions. Since React Native is a very recent framework it does not fully support native features for both systems. At the moment Facebook has more components and APIs ready for use with IOS than with Android. Android, on the other hand has a lot of open source components which are easily accessible.
+This framework introduces a totally new approach for developing mobile apps and enforces a new principle: 'Learn once, write anywhere'. Facebook provides implementations and supports both IOS and Android versions. Since React Native is a very recent framework it does not fully support native features for both systems. At the moment Facebook has more components and APIs ready for use with IOS than for Android. Android, on the other hand has a lot of open source components which are easily accessible.
 
 ReactNative can be used alongside with the native code. In order to use native code functions the developer has to create a bridge between ReactNative and native and export the functions they want to use in javascript.
 
-The last but not the least, ReactNative uses React, view framework described earlier.
+The last but not the least, ReactNative uses React, view framework described earlier. \cite{react-fb-native}
+
 
 \subsection{Objective C}
 
+React Native is a very young framework and it has not been fully developed, not all the native components have been wrapped with javascript in order to use in React Native applications. Therefore using Objective C while developing react native application is one of the conditions when the application requires a little extra functionality.
+
 \subsection{MongoDb}
-MongoDb is a non relational database which stores its data in files. If well designed it provides a very fast way of retrieving data. Among the main advantages over usual RDBMS belong:
+MongoDb is a non relational database which stores its data in documents. If well designed it provides a very fast way of retrieving data. Among the main advantages over usual RDBMS belong:
 
-\begin{enumerate}
-\item{Easy structure.} You do not need to create a lot of difficult relations, foreign keys and relation tables in your schema, since there is no schema. It is a document base database, which holds collections of documents.
+\begin{itemize}
+\item{Easy structure.} The developer does not need to create difficult relations, foreign keys and relation tables in the schema, since there is no schema. It is a document based database, which holds collections of documents.\cite{mongo-docs}
 
-\item{No complex joins.} When retrieving data you simply ask for a certain document and get all the needed information straight away. It takes just one request to the database to get your data.
+\item{No complex joins.} When retrieving data you simply ask for a certain document and get all the needed information straight away. It takes just one request to the database to get your data. The documents are usually comprised of key-value pairs by which  are easy to filter.\cite{mongo-docs}\cite{mongo-article2}
 
-\item{Flexible.} It usually happens that some entities populate certain fields and some do not and then the developer ends up with a lot of NULL value fields. Also adding/removing a new field to/from the RDBMS gets very complex, depending on the relations and the data which the database is already filled in with. Mongodb provides incredible flexibility here, since you can just add fields in some documents and do not add them in others. Doing so you eliminate null value fields and also get rid of the problem of adding/removing the field without breaking the whole structure.
+\item{Flexible.} It usually happens that some entities populate certain fields and some do not and then the developer ends up with a lot of NULL value fields. Also adding/removing a new field to/from the RDBMS gets very complex, depending on the relations and the data which the database is already filled in with. Mongodb provides incredible flexibility here, since you can just add fields in some documents and do not add them in others. Doing so you eliminate null value fields and also get rid of the problem of adding/removing the field without breaking the whole structure. \cite{mongo-article2}
 
-\item{Easy conversion.} The data in Mongodb is stored in json format, therefore once retrieved it is ready to use, with no need of conversion and mapping between formats and structures.
+\item{Easy conversion.} The data in Mongodb is stored in json format, therefore once retrieved it is ready to use, with no need of conversion and mapping between formats and structures.\cite{mongo-docs}
 
-\item{Query ability.} MongoDb uses its own query language which is similar to SQL, and therefore easy to learn to those who are familiar with SQL.
-\end{enumerate}
+\item{Query ability.} MongoDb uses its own query language which is similar to SQL and easy to learn to those who are familiar with SQL. \cite{mongo-docs}
+\end{itemize}
 
+In terms of security MongoDb does not allow sql injection since it does not use Structured Query Language to retrieve data. However it is still vulnerable to NoSQL injections. When querying the document set you can use a string containing a Javascript expression or you can pass a javascript function. Providing a great flexibility it also provides a loophole for attackers. In the case of passing a function if the user input is not properly validated and escaped the attacker can pass various malicious parameters. Therefore the developers have to make sure they take proper care of the user input. Moreover before version 2.4 mongo had a db variable available in the javascript context, which if misused could provide the attacker with a lot of information about document collections. For more information about this issue please refer to \cite{mongo-injection} and \cite{mongo-injection-docs} or have a look at this article \cite{mongo-article}, which contains working examples of malicious code.
+
+%To conclude MongoDB serves best for the systems with a lot of unstructured or semi-structured data which might require frequent schema changes.
+ 
 \subsection{Augmented Reality}
 
-One of the functionalities of a GPS pinned messaging application is the ability 
-One of the options this mobile application provides is leaving 3D objects pinned to GPS. In order to implement this I used technology used Augmented Reality.
+One of the options this mobile application provides is leaving 3D objects pinned to GPS. In order to implement this I used technology called  Augmented Reality.
 
-Augmented reality is the real world enhanced by the virtual reality. Virtual reality objects are placed in the real world settings and can be viewed with the help of various devices: mobiles, tablets, smart glasses etc. 
+Augmented reality is the real world enhanced by the virtual reality. Virtual reality objects are placed in the real world settings and can be viewed with the help of various devices: mobiles, tablets, smart glasses etc.
 
-There are several different types of Augmented reality:
+There are several different types of Augmented reality and it is not within the scope of this thesis to mention and describe all of them. However I would like to mention a few interesting types which I was researching about when choosing which type of Augmented Reality I would use.
+
 \begin{itemize}
-	\item{Marker based AR} \cite{ar-research}
+	\item{Marker based AR}
+	
+	The marker was created to help the device overcome the difficulty determining orientation of the camera and  understanding what environment it was observing. The marker is an easily detectable external sign placed on any surface. Once the camera detects and recognises the marker it can define the correct scale and pose of the camera. This technique is commonly known as marker based tracking. Marker can be anything from a clear black and white image to a colour photo. The main condition is that the marker has to be recognisable and not visually merge with the environment surrounding it. Preferably the marker should be a square since four points are enough for the camera to recognise its orientation precisely. Figure \ref{fig:marker} and Figure \ref{fig:marker2} are examples of different types of markers. Each marker can have information encoded in it, which would be identified by the device and further processed, for instance commercials might encode video links, which are played when the marker is recognised. Marker based systems are popular due to their fairly easy implementation and a number of accessible frameworks implementing that functionality out of the box. \cite{ar-research}
+	
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=0.5\textwidth]{assets/marker.png}}
+		\caption{Photo marker example \\ Source: \cite{wikitude}}	
+		\label{fig:marker}
+	\end{figure}
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=0.5\textwidth]{assets/marker2.png}}
+		\caption{Black and white marker example \\ Source: \cite{ar-research} }	
+		\label{fig:marker2}
+	\end{figure}
+	
+	Marker based AR is implemented in the famous IKEA application which came out in 2014. IKEA made a smart move and made their catalog a marker. The user would place catalog on the floor, point their phone at it and an IKEA piece of furniture would appear.\cite{truong2013today}
+	
 	\item{Markerless AR}
-	\item{POI}
+	
+	Markerless Augmented Reality as states the name uses no marker which makes its task more difficult. There are different methods of how to implement markerless tracking but I will only mention the following two as they seem of the biggest interest to me. They are simultaneous tracking and mapping (SLAM) and extensive methods or parallel tracking and mapping (PTAM). Both of these method use no prior knowledge of the environment. Both methods map the environment creating feature maps using various feature detection methods and algorithms. It is not within the scope of this thesis to describe these methods in detail however if interested please refer to \cite{ar-research}. 
+	
 	\item{Location based AR}
+		\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=0.7\textwidth]{assets/poi.png}}
+		\caption{Points of interest \\ Source: \cite{ar-github} }	
+		\label{fig:poi}
+	\end{figure}
+	This type of Augmented Reality places objects in real world on the pre-defined GPS coordinates. There are several subtypes for location based Augmented Reality: 
+	\begin{itemize}
+	\item POI or Points Of Interest is when an application registers a list of points of interest and shows them to the user based on his location. For instance it could be different restaurants or shops in the area. Figure~\ref{fig:poi} shows a sample application with POI AR.
+	\item Placing of 3D objects. This type is similar to POI but instead of 2D markers on the screen it uses 3D objects which are placed on the given GPS coordinates. Depending on the implementation some object are interactive while others are only for observation. 
+	\end{itemize}
 \end{itemize}
+
+Augmented Reality can be interactive with user clicking on links and objects to get more information about the scene, product or a building. 
+
+\section{System design}
+The goal of the thesis is to create a messaging system which will comprise of a mobile application, web application, server and a database. Figure \ref{fig:system} shows the proposed system's design. As the figure states the core of the system is a Node.js REST API server. It stores data in a NoSQL document database mongodb. Web application will be implemented in React and will be communicating with server through its API. Mobile application will also communicate with the server through API and will be implemented in React Native. The request load is expected to be high due to the system's purpose - messaging. Therefore Nginx http server will be configured as a load balancer using strategy least connectivity for helping to deal with requests. Least connectivity strategy forwards the incoming request to the server with the smallest number of connections. %SOURCE
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=1\textwidth]{assets/system.png}}
+		\caption{Interaction between parts of the system  }	
+		\label{fig:system}
+	\end{figure}
 
 \section{Database}
-lala
+One of the most important parts of any application is a database design. It is essential to understand how will your data be handled, saved and organised before starting to build an application. As was already mentioned in the previous chapter I chose MongoDB for this implementation. MongoDB does not define a scheme design principles or design notation which I could use. Therefore I used a simple notation where each square element represents a single document in the collection as the figure \ref{fig:model} shows.
 
-\section{Server}
-lalla
+MongoDb has a different view on data than relational databases. Relational databases are focused on what answers we have when document based databases are more focused on what questions we have. Therefore minor duplications are allowed, because they will save time preventing the database performing joins and looking up information in other tables.
 
-\section{Augmented Reality}
-\label{section:ar}
-
-After conducting a thorough research concerning various Augmented reality implementations, techniques and frameworks I limited my options to three choices. My goal is to be able to place a 3D object at a given GPS location. Therefore I was looking for a location aware solution. Below are listed different AR solutions I was considering.
-
+In GPS pinned application the main concern is the messages. We need to know on one request what is the message and all details about it. 
 \begin{itemize}
-	\item{Open source Augmented Reality SDK}
-	
-	There are a few open source AR SDKs with IOS support, implemented in Objective C. The one which seemed to be the most relevant can be found at  https://github.com/promet/PRAugmentedReality. This is neat small framework which supports even the older iPhones. It supports a type of AR called POI or Points Of Interest. It is not that well documented but has a video tutorial on how to get started with the framework. The lack of documentation is compensated with well commented code and a sample application.
-	
-	Advantages:
-	\begin{itemize}
-		\item{Support for Points of Interset}
-	\end{itemize}
-	
-	Disadvantages:
-	\begin{itemize}
-		\item{No support for 3D object which means the user would have to implement 3D object rendering himself}
-		\item{Implemented in Objective C, which is not the most developer friendly language}
-		\item{The last update of the framework was performed 2 years ago. This basically means the framework is not supported anymore. There is no community and in case of problems or bugs the developer has to deal with everything himself. There is an option of communicating with the author, but he didn't respond to my email inquiring about the possible support of 3D images, so I would not rely on that.}
-	\end{itemize}
+\item Message
 
-	Conclusion:
-	This option does not seem to be suitable as it is requires a deep understanding of Objective C in order to implement rendering and fix possible problems which might arise during development.
+Message contains all the necessary data about the message. The message document contains message text, its location with latitude and longitude and also city and country, which will be populated based on the Google Api response using coordinates. The message also contains object user with user's id and username. The case is that when previewing the message the only information we need to show the user is the username of the person who left the message. This minor duplication saves us time we would have spent looking through the user table in order to find correct user and get his username. MongoDb being a document database allows us saving the image as a base64 string right into the document. Maximum size of the MongoDB documents is 16 MB. We are dealing with mobile phone pictures which are on average between 2 and 5MB so we don't need to worry about space. %SOURCE! 
+Just for the information in case of bigger images it is also possible to save them in the collection. MongoDb has a tool which splits big documents in several smaller allowing any size to be safely saved in the collection. 
 
-	\item{Unity 3D - Kudan AR plugin}
-	
-	Advantages:
-	\begin{itemize}
-		\item{SLAM} - Simultaneous localization and mapping
-		\item{c}
-		
-	\end{itemize}
-	
-	Disadvantages:
-	\begin{itemize}
-		\item{a}
-		\item{b}
-	\end{itemize}	
-	\item{Wikitude AR}
-	Advantages:
-	\begin{itemize}
-		\item{Javascript API}
-		\item{Big community}
-		\item{Support}				
-	\end{itemize}
-	
-	Disadvantages:
-	\begin{itemize}
-		\item{Trial version} - the only free version, however with full support of all SDK's features, is trial. There is a watermark on the camera screen when using AR.
-	\end{itemize}		
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1\textwidth]{assets/model.png}}
+		\caption{MongoDB model of GPS pinned messaging application }	
+		\label{fig:model}
+	\end{figure}
+
+Some messages will be 3d obj and in order to save time and server side operations object id and its path will be saved directly in the message document.
+
+\item User
+
+User document contains standardised user data, authentication fields and an array of read message ids. We need to note down individual messages that user read so we can notify the user about comments on these messages. User document has a country object saved in it to save time querying. 
+
+\item GalleryFile
+
+Every user will have their own object gallery. They can upload their 3d object there according to the instructions given on the web. There will also be a common gallery from which users can choose objects they like and add them to their gallery. User gallery objects will have field user id populated while common gallery objects will have that field set to null. Each object will have a thumbnail and an actual file paths saved.
+
+\item Country
+
+I chose to create a separate country collection since I need to provide users with a country selection for their profile and it has to be unified for all users.
+
+\item View
+
+This collection will have info about when and which user viewed which message. This collection will be used for statistics and when checking for new comments and views of users messages.
+
 \end{itemize}
 
+\section{Server}
 
-After careful consideration I decided to choose the 3d option - Wikitude AR SDK with trial version. It seems to be the best solution.
+The server is implemented as a REST API Node.js server using Express framework. Express is a commonly used base for a server. It includes the main components and libraries the developer needs to create a server. It is a minimalistic framework that serves as a solid starting point, providing a robust set of features, middleware and methods. It makes creating API quick and easy. Many frameworks created for working with Node.js are based on express. Express is even shipped with a generator which provides you with a basic directory structure. Detailed info about the framework, including documentation and examples can be found at \cite{express}. 
+\subsection{Endpoints}
+REST API design is an important part of the analysis process. It helps defining application's functions and capabilities and develops an overall understanding of the workflow.
 
-\subsection{Server design}
-lala
+\begin{itemize}
+\item{Index}
+	
+	 \verb GET  \url{/}	
+	
+	renders API documentation
+\item {Messages}
 
-\subsection{Api design}
-lala
+	 \verb GET  \url{/messages?lat=''&lng=''} 
+		\begin{itemize}
+			\item \verb|lat| - latitude coordinate
+			\item \verb|lng| - longitude coordinate		
+		\end{itemize}	
+	
+	retrieves all messages within the preset radius of 50 meters from the given location specified by latitude and longitude \\~\\
+	
+	 \verb POST  \url{/messages}	
+	
+	saves a message to the database	\\~\\
+	
+	 \verb GET  \url{/messages/:id}	
+		\begin{itemize}
+			\item \verb|:id|	- message id, string
+		\end{itemize}		
+	
+	returns a message with the given id		\\~\\
+	
+	 \verb GET  \url{/messages/user/:id?page=''&limit=''}	
+		\begin{itemize}
+			\item \verb|:id| - user id, string
+			\item \verb|page|
+			\item \verb|limit|
+		\end{itemize}		
+	
+	returns user's messages, supports pagination	\\~\\	 
+	
+	 \verb GET  \url{/messages/:id/comments?page=''&limit=''}	
+		\begin{itemize}
+			\item \verb|:id|	- message id, string
+			\item \verb|page|
+			\item \verb|limit|
+		\end{itemize}		
+	
+	returns message's comments, supports pagination \\~\\	 
+	
+	 \verb POST  \url{/messages/:id/comments}	
+		\begin{itemize}
+			\item \verb|:id|	- message id, string
+		\end{itemize}		
+	
+	saves a comment for a message specified by id
+
+\item {Files}	
+ 
+	 \verb|POST|  \url{/files/form}	
+	
+	special endpoint for saving the web form for uploading gallery images \\~\\	 
+	
+	 \verb GET  \url{/files/gallery?page=''&limit='}	
+		\begin{itemize}
+			\item \verb|page|
+			\item \verb|limit|
+		\end{itemize}		
+	returns common gallery files, supports pagination \\~\\	 
+	
+	 \verb GET  \url{/files/gallery/user/:id?page=''&limit='}	
+		\begin{itemize}
+			\item \verb|:id| - user id, string
+			\item \verb|page|
+			\item \verb|limit|
+		\end{itemize}	
+	returns gallery for the user, specified by id,  supports pagination
+	
+\item {Users}	
+ 
+	 \verb GET  \url{/users/me}	
+	
+	returns information about the currently authenticated user	\\~\\	 
+	
+	 \verb GET  \url{/users/:id}	
+		\begin{itemize}
+			\item \verb|:id|	- user id, string
+		\end{itemize}		
+	returns information about the user specified by id \\~\\	 
+	
+	 \verb POST  \url{/users}	
+
+	creates a new user \\~\\	 
+	
+	 \verb PUT  \url{/users/:id}	
+		\begin{itemize}
+			\item \verb|:id|	- user id, string
+		\end{itemize}		
+	updates information about the user specified by id	
+\item {OAuth} 
+
+	 \verb POST  \url{/oauth/token}	
+	 
+	 Request body content-type is \verb application/json   and it must contain
+		\begin{itemize}
+			\item \verb|client_id|
+			\item \verb|client_secret|
+			\item \verb|username|
+			\item \verb|password	|								
+		\end{itemize}		
+	
+	If username and password are correct the endpoint returns a token for authenticated communication with the server.
+	
+	All of the above listed endpoints are only accessed with a valid token.
+\end{itemize}
+\subsection{Authentication}
+
+One of the functional requirements for the server is to provide authentication for users. The authentication will be implemented using OAuth 2 protocol. It fits well our needs because we will be communicating with our server through API from two different applications. Figure \ref{fig:oauth} demonstrates OAuth 2 authentication flow. There are 3 main actors in the authentication process.
+
+\begin{itemize}
+
+\item User
+
+The user owns a resource which an application wants to access. In the case of authentication the resource is user information, their credentials and personal information, which 3d party needs to access in order to identify and authenticate the user.
+
+\item Service API
+
+Service API is an Authorisation and a Resource Server. It hosts user protected information and verifies the identity of the user so it can provide the client application with an access and refresh tokens to communicate with the server.
+
+\item Client
+
+The client is an application which wants to access user information and other resources which user allows it to use. Before the application is able to access any of that information the user has to authorise it's activity.
+
+\end{itemize}
+
+The authentication flow is the following:
+
+\begin{enumerate}
+\item The client application sends the user an authorisation request asking them to allow permission to access their information. It usually appears as a new window, where the application shows the user a list of information it wants to access.
+\item In the case that user agrees he provides the client application with an authorisation grant, which is used for further verification of user's identity
+\item The Client application uses obtained authorisation grant to form another request to the Authorisation/Resources server, which contains it's client id, client secret, authorisation grant type and the details of authorisation grant sent by user.
+\item If the server identifies the client application and the user it issues a response which usually contains an access token, a refresh token and a token expiration date. Authorisation process is complete at this stage. Both client and user were verified by the server.
+\item Once application has the token it can issue requests to server to access protected resources which belong to the user.
+\item If the client application sends the correct token it is granted access to protected resource. In the case the token has expired the client can always use refresh token in order to receive a new access token.
+\end{enumerate}
+
+There are several different authorisation grants that are supported by OAuth 2. It is not within the scope of this thesis to discuss all of them however if interested please refer to \cite{oauth}. The Password authorisation grant was chosen for authentication with the server. It requires the user to provide the client with their username and password. This grant should only be used in the case when the application is trusted by the server such as our case, when both applications and the server are created as one system.
+
+In order for this whole process to work the client application has to be previously registered with the Authorisation/Resource server. After the registration it will receive a client id and a client secret or so called client credentials which are used for authenticating with the server.
+
+Example of the request with authorisation grant which is described in the step 4 is shown on listing \ref{lst:json}. \\~\\
+\verb|POST| \url{https://oauth.example.com/api/oauth/token}
+\begin{listing}
+\begin{lstlisting}[language=JavaScript]
+{
+    "grant_type": "password",
+    "client_id": "public_client_id",
+    "client_secret": "very_secret_client_secret",
+    "username": "mark",
+    "password": "secretpassword"
+}
+\end{lstlisting}
+\caption{Request body of user authorisation example} 
+\label{lst:json}
+\end{listing}
+
+
+\begin{figure}[!ht]
+	\includegraphics[width=1\textwidth]{assets/oauth.png}}
+	\caption{OAuth2 authentication protocol flow. \\ Source: \cite{oauth}}	
+	\label{fig:oauth}
+\end{figure}
+
+\subsection{Retrieval by coordinates}
+
+One of the main functions of the server will be returning messages within a given radius of user's current GPS location. The calculation of the distance from the user's GPS location will be done using sphere geometry.
+
+In the case of distance calculation there are two ways one can choose - either using Euclidean geometry or spherical geometry. Euclidean geometry is also known as the 'plane geometry'. It is a type of geometry where the internal angles of triangles add up to 180 degrees, parallel lines do not ever cross and everything is flat. Spherical geometry on the contrary does not take account of flat world and works with 3d. Since the earth is shaped in a form of a sphere it would be better to use spherical geometry for distance calculations, since they will be more precise.
+%SOURCE
+
+\subsection{Files processing}
+
+The server will be working with files attached to the messages, 3d objects and their thumbnails. 
+
+Web application will have a form which will be used for uploading 3d objects and their thumbnails to the server. The application will be sending a request with content type  \verb|multipart/form-data| which needs to be parsed in order to retrieve information and files from it. Node.js offers a number of handy middleware which parses \verb|multipart/form-data| and works with files. After a thorough research I chose \verb|node-multiparty| available at \cite{multiparty}. This library parses the form data and makes files attached accessible. 
+
+Thumbnails for 3d objects have to be resized to smaller size in order to avoid wasting space on the server. For resizing  a \verb|node-imagemagick| library available at \cite{node-imagemagick} was chosen, which uses original \verb|ImageMagick| library availble at \cite{imagemagick}.
+
+Message attachment files which are not objects are resized on the side of the mobile application. Therefore no further server side processing is needed. 
+
 
 \section{Mobile application}
-lalal
+The mobile application is built with React Native which is a purely view framework. 
+
 \subsection{Application design}
-My mobile application is built with React Native which is a view framework. It is a frontend The MVC concept, however very familiar to me didn't seem at the right place. 
+
+
 
 \subsubsection{Redux}
-Redux is a predictable state container for Javascript application. It is a small library which helps control and structure application's state hierarchy.
+Redux is a predictable state container for Javascript application. It is a small library which helps control and structure application's state hierarchy. The main concern in javascript application is taking care of the state of application. 
 
-The main concern in javascript application is taking care of the state of application. 
-
-Redux was created inspired by Flux which is a way Facebook creates their applications.
-Flux
-Why is Redux better?
+Redux was inspired by Flux, which is a way Facebook creates their applications. But Redux was made smaller and easier to use.  %SOURCE
 
 \subsubsection{Data Flow}
 Redux's biggest advantage it's the way it handles the data flow. Redux has unidirectional data flow, which provides the developer with a clear and easy to debug application.
@@ -415,20 +629,335 @@ https://github.com/acdlite/flux-standard-action
 
 Reducer composition
 
-\section{Web application}
-lala
 
-\subsection{Application design}
-lala
+\subsection{Augmented Reality}
+\label{section:ar}
+
+After conducting a thorough research concerning various Augmented reality implementations, techniques and frameworks I limited my options to three choices. My goal is to be able to place a 3D object at a given GPS location. Therefore I was looking for a location aware solution. Below are listed different AR solutions I was considering.
+
+\begin{itemize}
+	\item{Open source Augmented Reality SDK}
+	
+	There are a few open source AR SDKs with IOS support, implemented in Objective C. The one which seemed to be the most relevant can be found at  \url{https://github.com/promet/PRAugmentedReality}. This is neat small framework which supports even the older iPhones. It supports a type of AR called POI or Points Of Interest. It is well documented and has a video tutorial on how to get started with the framework. There are also well commented code and a sample application.
+	
+	Advantages:
+	\begin{itemize}
+		\item{Support for Points of Interest} therefore Geo location support
+	\end{itemize}
+	
+	Disadvantages:
+	\begin{itemize}
+		\item{No support for 3D object. The developer would have to implement 3D object rendering himself}
+		\item{Implemented in Objective C, which is not the most developer friendly language}
+		\item{The last update of the framework was performed 2 years ago. This basically means the framework is not supported anymore. There is no community and in case of problems or bugs the developer has to deal with everything himself. There is an option of communicating with the author, but he didn't respond to my email inquiring about the possible support of 3D images, so I would not rely on that.}
+	\end{itemize}
+
+	Conclusion:
+	This option does not seem to be suitable as it is requires a deep understanding of Objective C in order to implement rendering and fix possible problems which might arise during development. The focus of this thesis is to explore new way of creating apps such as using javascript wrappers for objective C to create pure native experience.
+
+	\item{Unity 3D - Kudan AR plugin}
+	
+	Kudan is an Augmented Reality SDK.  Kudan support iOS, Android and Unity cross platform game engine. It offers a much better Augmented Reality experince using its Advanced tracking for both marker and markerless augmented reality. For more information about Kudan please see official website at \cite{kudan}
+	
+	Advantages:
+	\begin{itemize}
+		\item{SLAM} - Simultaneous localisation and mapping is a great technique displaying 3d objects. It has already been shortly described in the previous chapter. The beauty of it is that it maps the environment and puts the object in it so it looks natural. For instance if your camera would be facing a table the object will be put on the surface of the table.
+		\item{}
+		
+	\end{itemize}
+	
+	Disadvantages:
+	\begin{itemize}
+		\item{SLAM} - even though it is an advantage, it is also a disadvantage since for my purposes I need to have an object placed at a certain location. Unfortunately it is not possible with SLAM since it is not a location based technique. Therefore when using SLAM and turning the camera around, the object will always stay in front of the camera, which is an unwanted result for my purposes.
+		\item{New framework} - it is not a severe disadvantage, but usually new frameworks tend to be buggy. It is better to wait some time until the next version is released to start using any new system.
+		\item{Resource changing} - the mobile application is supposed to serve the url of the AR object to render. Kudan Unity plugin did not offer an easy and pretty way of doing so. With Kudan serving new AR object would involve physical moving of files and recompiling which would not be possible in my application.
+	\end{itemize}	
+	\item{Wikitude AR}
+	Advantages:
+	\begin{itemize}
+		\item{Javascript API} - Wikitude provides a clean API with good documentation. It is a huge advantage since the main technologies I am using in my thesis are all javascript based.
+		\item{Big community and support} - The Wikitude AR has a big community and a forum with a lot of different issue to browse through. It has been already developed for several year, which means loads of useful features were implemented and bugs eliminated.
+		\item{iOS integration} - My application starting point is objective C project and I was looking for a solution which would be easily integrated in Native - React Native flow. The documentation provides with a good example of how to work with the Wikitude.
+		\			
+	\end{itemize}
+	
+	Disadvantages:
+	\begin{itemize}
+		\item{Trial version} - the only available version to use is a free version, however with full support of all SDK's features, is trial. There is a watermark on the camera screen when using AR.
+	\end{itemize}		
+\end{itemize}
+
+After careful consideration I decided to choose the Wikitude AR SDK with trial version. It seems to be the best solution, not minding the trial flags on the camera. It provides an easy way of integrating the framework in my application. Javascript API is also a very big advantage for my purposes.
+
+\section{Web application}
+
+Web application will be implemented using react. 
+
+%source https://web-design-weekly.com/2014/09/24/diving-webpack/
+\subsection{Webpack}
+Webpack is a module bundler, a tool which packs the whole application together, translates everything needed to pure javascript, html and css. The bigger your app becomes the more modularised it is. It is a good development approach to break up your javascript application into multiple modules. The code becomes cleaner and easier to read, the loading time of your application also decreases since you do not load everything at once. Webpack takes these different modules with dependencies and merges them.
+
+
 
 \chapter{Realisation}
 
-\section{Augmented Reality}
+\section{Server}
+\subsection{Structure}
+
+The directory structure of the server is shown on figure \ref{fig:server_dir}. The base for this structure was generated by the Express directory generator. 
+
+The main logic happens in \verb|app.js|, which defines the whole server, includes important dependencies and connects routes.
+The \verb|route| folder describes different endpoint operations. The endpoints in \verb|route| folder use helpers from \verb|util|. 
+
+% source - mongoDb flexibility, changing schema on the fly
+The \verb|models| folder consists of \verb|mongoose| models. \verb|Mongoose| is an ORM wrapper for talking to MongoDB. MongoDb is very flexible and does not enforce the developer to have a database scheme defined however it is easier and better to have at least defined models for different collections. Mongo allows changing 'database scheme' on the fly, by adding new keys without any overhead. This advantage might serve as a weak point for an attacker in the case models are not defined, which could allow unwanted and unexpected malicious values get in collections.
+
+The \verb|views| folder consists only of one view because our server serves strictly as a REST API server. The only template shows server's API documentation on the index page.
+
+The \verb|controllers| folder consists of two authorization controllers. The \verb|auth.controller.js| defines authorization strategies of library \verb|passport| (for more info please fsee section Libraries user) such as \textit{BasicStrategy}, \textit{ClientPassword Strategy} and \textit{BearerStrategy}. The \verb|oauth2.controller.js| takes care of token generation, verification and issuing new token on refresh token.
+
+\begin{figure}
+	\dirtree{%
+		.1 bin .
+		.2 www\DTcomment{node start script}.
+		.1 config .
+		.2 config.js\DTcomment{main config of the server}.
+		.1 controllers .
+		.2 auth.controller.js\DTcomment{authorization strategies}.
+		.2 oauth2.controller.js\DTcomment{OAuth2 flow}.					
+		.1 data\DTcomment{mongodb documents directory}.
+		.1 docs .
+		.2 api.apib\DTcomment{api documentation api blueprint}.
+		.2 output.html\DTcomment{api documentation output}.
+		.1 kue\DTcomment{kue consumers}.
+		.2 geoConsumer.js .
+		.2 validConsumer.js . 		
+		.1 models\DTcomment{mongoose models}.
+		.2 client.js .
+		.2 comment.js .
+		.2 galleryFile.js .
+		.2 message.js .
+		.2 messageObj.js .
+		.2 refreshToken.js . 
+		.2 token.js .
+		.2 user.js .
+		.2 view .										
+		.1 public .
+		.2 gallery\DTcomment{3D gallery files and thumbnails}.
+		.1 routes\DTcomment{the thesis text directory}.
+		.2 files.js .
+		.2 index.js .
+		.2 messages.js . 
+		.2 users.js .		
+		.1 tests .		
+		.1 util\DTcomment{helpers}.
+		.2 common.helper.js .
+		.2 file.helper.js .
+		.2 messages.helper.js .
+		.2 query.helper.js .
+		.2 request.helper.js . 
+		.2 string.helper.js .	
+		.2 view.helper.js .		
+		.1 views .
+		.2 index.jade\DTcomment{server index file showing api docs}.	
+		.1 app.js\DTcomment{main server file}.
+		.1 package.json\DTcomment{npm packages}.
+		.1 README.md .
+	}
+	\caption{Server directory structure}	
+	\label{fig:server_dir}
+\end{figure}
+
+\newpage
+\subsection{Distance and radius retrieval}
+
+The messages endpoint returns messages within the preset radius from given GPS coordinates. Retrieval of messages needed to be fast and effective with the expected growing message collection. Simple search with comparing distances between given GPS and message's location was not suitable. 
+
+MongoDb has a powerful system of geo queries. It supports both 2d and sphere geo queries. To use these queries document data have to be saved in GeoJSON format. Documents in this format consist of an array of coordinates (longitude, latitude) and a type. There is a vast selection of types such as for instance "Polygon" or "Geometry Collection". My geo location data are representing a single point therefore I chose type "Point". The example of data in preferred GeoJSON format is shown on listing \ref{lst:geoJSON}
+
+\begin{listing}
+\begin{lstlisting}[language=JavaScript]
+"loc" : {
+    "type" : "Point",
+        "coordinates" : [
+        14.422061,
+        50.087657
+    ]
+}
+\end{lstlisting}
+\caption{GeoJSON}
+\label{lst:geoJSON}
+\end{listing}
+
+The example of geo query is showed on listing \ref{lst:geoQ} Another optimisation of search performance is creation of a 2dsphere index on location field. An example of index definition in mongoose model is shown on \ref{lst:2dsphere}
+
+
+\begin{listing}
+\begin{lstlisting}[language=JavaScript]
+loc: {
+    $geoWithin: {
+        $centerSphere: [
+            [
+                longitude,
+                latitude
+            ],
+            radius
+        ]
+    }
+}
+\end{lstlisting}
+\caption{Geo query finding for coordinates within radius}
+\label{lst:geoQ}
+\end{listing}
+
+
+\begin{listing}
+\begin{lstlisting}[language=JavaScript]
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var messageSchema = new Schema({
+        loc: {
+            coordinates: {type: [Number], required: true},
+            type: {type: String, required: true}
+        }
+    });
+messageSchema.index({loc : '2dsphere'});
+var Message = mongoose.model('Message', messageSchema);
+module.exports = Message;
+\end{lstlisting}
+\caption{Part of the mongoose model with 2d sphere index definition.}
+\label{lst:2dsphere}
+\end{listing}
+
+
+\subsection{Load balancer}
+
+Among the non functional requirements there are Scalability and Performance. In other words the server has to be able to cope with growing requests load and it should be easily scalable if needed. Using load balancer fulfils both of these requirements. Load balancer will forward requests to the chosen server instance in case others are too busy to process new requests. Scalability of the server can be achieved with running more instances and configuring load balancer to register these new server instances.
+
+Load balancer I used is called \verb|Nginx|. It is an http server but is also a reverse proxy server and used for load balancing. Load balancing strategy used on the server is \textit{least connectivity}. \textit{Least connectivity} strategy means that the server with the smallest number of connections will receive new request. \cite{nginx-lb} Another advantage of having nginx taking care of incoming requests is that it can also take care of serving static content instead of the server. 
+
+The following listing \ref{lst:nginx} shows the main part of the Nginx configuration file with registered load balancer. It is preferable to use ssl connection for running the server. There are examples for connecting over ssl and without. Lines 3 till 9 of the configuration file define the upstream, the servers which will be processing incoming requests. The load balancing strategy is defined on line 4. Lines 13 and 14 indicate path to log files. The static content serving is configured on line 16. Line 20 finally defines proxy pass, which name matches name of the upstream. This configuration allows all requests coming to \url{http://127.0.0.1:8080} be forwarded to one of the server from upstream according to \textit{leact connectivity} strategy. The configuration on lines 27 to 34 does the same but for the secure connection via \verb|https://| .
+
+
+\begin{listing}
+\begin{lstlisting}[language=JavaScript]
+
+http {
+    upstream air_servers {
+        least_conn;                 # Least Connections strategy
+        server 127.0.0.1:3000;      # NodeJS AirServer 1
+        server 127.0.0.1:3001;      # NodeJS AirServer 2
+        server 127.0.0.1:3002;      # NodeJS AirServer 3
+    }
+
+    server {
+        listen       8080;
+        
+        access_log /var/log/nginx/access.log;
+        error_log  /var/log/nginx/error.log error;
+
+        location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {
+             root /path/to/static/files;
+        }        
+
+        location / {
+            proxy_pass http://air_servers;
+        }
+    }
+
+    # HTTPS server
+    
+    server {
+        listen 443;
+        
+        ssl on;
+        ssl_certificate     /etc/ssl/example.com/example.com.crt;
+        ssl_certificate_key /etc/ssl/example.com/example.com.key;
+
+       # plus the same configuration as above
+    }
+}
+
+
+\end{lstlisting}
+\caption{Part of the Nginx configuration file - nginx.conf. Load Balancer configuration.}
+\label{lst:nginx}
+\end{listing}
+
+
+\subsection{Queue}
+
+Priority job queue was used in this project to solve the following problems. 
+
+Firstly when creating a new message the user has to set message's validity in days, from 1 up to 365 days. When a message is created it is valid immediately and becomes invalid after the validity time expires. I was looking for a way to set the valid flag to false when the message expires. Job queue seemed like the perfect solution. 
+
+Secondly I needed to update message's location details with city and country for the statistics endpoints. This involved calling The Google Maps Geocoding Api \cite{maps-api}, waiting for response, parsing the response and updating the document in the database. This slightly lengthy process could not take part while saving the message as it would affect user experience negatively and the application could seem slow. Furthermore in the case of potential problems which could arise from calling 3d party API the whole message saving process could be sabotaged.
+
+\subsubsection{Kue}
+
+Kue is a very simple priority job queue backed up by Redis and created specifically for node.js .
+
+"Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster." The description of Redis is taken from its official website found at \cite{redis}
+
+The complete documentation for \verb|kue| is available at \cite{kue}
+
+\subsubsection{Configuration}
+
+Kue as every job queue needs to have consumers and producers created. The producer part of the code was put in the processing of message POST request. The example of the producer code is shown on listing \ref{lst:prod} I created a \verb|queue.helper.js| which took care of putting jobs in the queues. There are two queues for two types of jobs: 'valid-queue' and 'geo-queue'. Valid flags jobs had to be delayed so they had set delayed time period calculated from the number of valid days input by user. The delaying of a job is part of the kue and is implemented by using \verb|delay()| function on line 6 at listing \ref{lst:prod}. I also created two consumers - \verb|geoConsumer.js| and \verb|validConsumer.js|. The example of geo consumer is shown on listing \ref{lst:consumer}. The \verb|geoCode| function in the listing on line 6 further processes received job data.
+
+
+\begin{listing}
+\begin{lstlisting}[language=JavaScript]
+function addToValidQueue(queue, message){
+    var job = queue.create('valid-queue', {
+            title: 'unset valid',
+            message_id: message.id,
+        })
+        .delay(message.validity)
+        .save(function (err) {
+            if (err) {
+            	log(err);
+            }
+         });
+}
+\end{lstlisting}
+\caption{Producer}
+\label{lst:prod}
+\end{listing}
+
+
+\begin{listing}
+\begin{lstlisting}[
+	language=JavaScript
+	caption=Node consumer example
+	]
+
+var kue = require('kue');
+var queue = kue.createQueue();
+
+queue.process('geo-queue', function (job, done) {
+    geoCode(job.data, done);
+});
+
+\end{lstlisting}
+\caption{Node consumer} 
+\label{lst:consumer}
+\end{listing}
+
+
+
+\subsection{Libraries used}
+
+\section{Mobile Application}
+
+\subsection{Structure}
+\subsection{Augmented Reality}
 As I have previously stated in chapter Analysis and design section \nameref{section:ar} I chose Wikitude SDK for implementation of Augmented Reality in my application. 
 
 Wikitude SDK has a plugin for IOS development with Javascript API which I decided to use. There is no direct support for React Native, but the plugin provides a developer with Wikitude framework and there is a set of instructions how to integrate AR in the native iOS application on their website (for reference see official setup guide \url{http://www.wikitude.com/developer/documentation/ios}. 
 
-\subsection{Connecting React Native and Objective C}
+\subsubsection{Connecting React Native and Objective C}
 React Native is a set of javascript functions wrapped around native code. Therefore you can make your application communicate with the native code using Native Modules or Native UI Components. This is particularly useful when you want to implement part of you application's functionality natively.  
 
 There are two macros which are used for this case:
@@ -491,8 +1020,25 @@ module.exports = Component;
 
 \end{itemize}
 
-\subsection{Integration of Wikitude and RN}
+\subsubsection{Integration of Wikitude and RN}
 To start using Wikitude SDK we first need to add it to our XCode project and create a ViewController as described in the official setup guide at \url{http://www.wikitude.com/developer/documentation/ios}. There is also a sample project available at \url{https://github.com/Wikitude/wikitude-sdk-basic-projects} which shows an example of ViewController implementation. For my purposes I had to modify the sample implementation. The complete implementation for integration of Wikitude and React Native is found in Appendix: \nameref{apendix:integration}
+
+\subsection{Libraries used}
+
+All the libraries that were provided by the npm package manager.
+
+
+\section{Web Application}
+\subsection{Structure}
+
+\subsection{Libraries used}
+
+\section{Testing}
+
+\subsection{Data testing}
+
+
+\subsection{Unit testing}
 
 \setsecnumdepth{part}
 \chapter{Conclusion}
@@ -769,16 +1315,16 @@ RCT_EXPORT_MODULE()
 %change appropriately
 
 \begin{figure}
-%	\dirtree{%
-%		.1 readme.txt\DTcomment{the file with CD contents description}.
-%		.1 exe\DTcomment{the directory with executables}.
-%		.1 src\DTcomment{the directory of source codes}.
-%		.2 wbdcm\DTcomment{implementation sources}.
-%		.2 thesis\DTcomment{the directory of \LaTeX{} source codes of the thesis}.
-%		.1 text\DTcomment{the thesis text directory}.
-%		.2 thesis.pdf\DTcomment{the thesis text in PDF format}.
-%		.2 thesis.ps\DTcomment{the thesis text in PS format}.
-%	}
+	\dirtree{%
+		.1 readme.txt\DTcomment{the file with CD contents description}.
+		.1 exe\DTcomment{the directory with executables}.
+		.1 src\DTcomment{the directory of source codes}.
+		.2 wbdcm\DTcomment{implementation sources}.
+		.2 thesis\DTcomment{the directory of \LaTeX{} source codes of the thesis}.
+		.1 text\DTcomment{the thesis text directory}.
+		.2 thesis.pdf\DTcomment{the thesis text in PDF format}.
+		.2 thesis.ps\DTcomment{the thesis text in PS format}.
+	}
 \end{figure}
 
 \end{document}

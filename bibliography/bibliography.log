@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.11.9)  3 APR 2016 23:43
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.11.9)  4 MAY 2016 10:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -8,20 +8,20 @@ entering extended mode
 LaTeX2e <2011/06/27>
 Babel <3.9f> and hyphenation patterns for 78 languages loaded.
 
-./bibliography.bib:11: LaTeX Error: Missing \begin{document}.
+./bibliography.bib:10: LaTeX Error: Missing \begin{document}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.11 @
-      misc{node-benefits,
+l.10 @
+      manual{kudan,
 ? 
-./bibliography.bib:11: Emergency stop.
+./bibliography.bib:10: Emergency stop.
  ...                                              
                                                   
-l.11 @
-      misc{node-benefits,
+l.10 @
+      manual{kudan,
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -34,4 +34,4 @@ Here is how much of TeX's memory you used:
  3640 words of font info for 14 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  5i,0n,4p,78b,14s stack positions out of 5000i,500n,10000p,200000b,80000s
-./bibliography.bib:11:  ==> Fatal error occurred, no output PDF file produced!
+./bibliography.bib:10:  ==> Fatal error occurred, no output PDF file produced!
