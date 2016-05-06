@@ -289,6 +289,11 @@ In terms of security MongoDb does not allow sql injection since it does not use 
 
 %To conclude MongoDB serves best for the systems with a lot of unstructured or semi-structured data which might require frequent schema changes.
  
+ %source https://web-design-weekly.com/2014/09/24/diving-webpack/
+\subsection{Webpack}
+Webpack is a module bundler, a tool which packs the whole application together, translates everything needed to pure javascript, html and css. The bigger your app becomes the more modularised it is. It is a good development approach to break up your javascript application into multiple modules. The code becomes cleaner and easier to read, the loading time of your application also decreases since you do not load everything at once. Webpack takes these different modules with dependencies and merges them.
+
+ 
 \subsection{Augmented Reality}
 
 One of the options this mobile application provides is leaving 3D objects pinned to GPS. In order to implement this I used technology called  Augmented Reality.
@@ -386,18 +391,82 @@ This collection will have info about when and which user viewed which message. T
 
 \end{itemize}
 
+
+\section{Augmented Reality Feasibility study}
+\label{section:ar}
+
+After conducting a thorough research concerning various Augmented reality implementations, techniques and frameworks I limited my options to three choices. My goal is to be able to place a 3D object at a given GPS location. Therefore I was looking for a location aware solution. Below are listed different AR solutions I was considering.
+
+\begin{itemize}
+	\item{Open source Augmented Reality SDK}
+	
+	There are a few open source AR SDKs with IOS support, implemented in Objective C. The one which seemed to be the most relevant can be found at  \url{https://github.com/promet/PRAugmentedReality}. This is neat small framework which supports even the older iPhones. It supports a type of AR called POI or Points Of Interest. It is well documented and has a video tutorial on how to get started with the framework. There are also well commented code and a sample application.
+	
+	Advantages:
+	\begin{itemize}
+		\item{Support for Points of Interest} therefore Geo location support
+	\end{itemize}
+	
+	Disadvantages:
+	\begin{itemize}
+		\item{No support for 3D object. The developer would have to implement 3D object rendering himself}
+		\item{Implemented in Objective C, which is not the most developer friendly language}
+		\item{The last update of the framework was performed 2 years ago. The framework is not supported anymore. There is no community and in case of problems or bugs the developer has to deal with everything himself. There is an option of communicating with the author, but he didn't respond to my email inquiring about the possible support of 3D images, so I would not rely on that.}
+	\end{itemize}
+
+	Conclusion:
+	This option does not seem to be suitable as it is requires a deep understanding of Objective C in order to implement rendering and fix possible problems which might arise during development. The focus of this thesis is to explore new way of creating apps such as using javascript wrappers for objective C to create pure native experience.
+
+	\item{Unity 3D - Kudan AR plugin}
+	
+	Kudan is an Augmented Reality SDK.  Kudan supports iOS, Android and Unity cross platform game engine. It offers a much better Augmented Reality experince using its Advanced tracking for both marker and markerless augmented realities. For more information about Kudan please see official website at \cite{kudan}
+	
+	Advantages:
+	\begin{itemize}
+		\item{SLAM} - Simultaneous localisation and mapping is a great technique displaying 3d objects. It has already been shortly described in the previous chapter. The beauty of it is that it maps the environment and puts the object in it so it looks natural. For instance if your camera would be facing a table the object will be put on the surface of the table.
+		
+	\end{itemize}
+	
+	Disadvantages:
+	\begin{itemize}
+		\item{SLAM} - even though it is an advantage, it is also a disadvantage since for my purposes I need to have an object placed at a certain location. Unfortunately it is not possible with SLAM since it is not a location based technique. Therefore when using SLAM and turning the camera around, the object will always stay in front of the camera, which is an unwanted result for me.
+		\item{New framework} - it is not a severe disadvantage, but usually new frameworks tend to be buggy. It is better to wait some time until the next version is released to start using any new system.
+		\item{Resource changing} - the mobile application is supposed to serve the url of the AR object to render. Kudan Unity plugin did not offer an easy and pretty way of doing so. With Kudan serving new AR object would involve physical moving of files and recompiling which would not be possible in my application.
+	\end{itemize}	
+	\item{Wikitude AR}
+	Advantages:
+	\begin{itemize}
+		\item{Javascript API} - Wikitude provides a clean API with good documentation. It is a huge advantage since the main technologies I am using in my thesis are all javascript based.
+		\item{Big community and support} - The Wikitude AR has a big community and a forum with a lot of different issue to browse through. It has been already developed for several year, which means loads of useful features were implemented and bugs eliminated.
+		\item{iOS integration} - My application starting point is objective C project and I was looking for a solution which would be easily integrated in Native - React Native flow. The documentation provides with a good example of how to work with the Wikitude.
+		\			
+	\end{itemize}
+	
+	Disadvantages:
+	\begin{itemize}
+		\item{Trial version} - the only available version to use is a free version, however with full support of all SDK's features, is trial. There is a watermark on the camera screen when using AR.
+	\end{itemize}		
+\end{itemize}
+
+After careful consideration I decided to choose the Wikitude AR SDK with trial version. It seems to be the best solution, not minding the trial flags on the camera. It provides an easy way of integrating the framework in my application. Javascript API is also a very big advantage.
+
+
+
+\chapter{Realisation}
+
 \section{Server}
+
 
 The server is implemented as a REST API Node.js server using Express framework. Express is a commonly used base for a server. It includes the main components and libraries the developer needs to create a server. It is a minimalistic framework that serves as a solid starting point, providing a robust set of features, middleware and methods. It makes creating API quick and easy. Many frameworks created for working with Node.js are based on express. Express is even shipped with a generator which provides you with a basic directory structure. Detailed info about the framework, including documentation and examples can be found at \cite{express}. 
 \subsection{Endpoints}
-REST API design is an important part of the analysis process. It helps defining application's functions and capabilities and develops an overall understanding of the workflow.
+REST API design is an important part of the realisation process. It helps defining application's functions and capabilities and develops an overall understanding of the workflow.
 
 \begin{itemize}
 \item{Index}
 	
 	 \verb GET  \url{/}	
 	
-	renders API documentation
+	renders API documentation	\\
 \item {Messages}
 
 	 \verb GET  \url{/messages?lat=''&lng=''} 
@@ -442,7 +511,7 @@ REST API design is an important part of the analysis process. It helps defining 
 			\item \verb|:id|	- message id, string
 		\end{itemize}		
 	
-	saves a comment for a message specified by id
+	saves a comment for a message specified by id \\
 
 \item {Files}	
  
@@ -463,7 +532,7 @@ REST API design is an important part of the analysis process. It helps defining 
 			\item \verb|page|
 			\item \verb|limit|
 		\end{itemize}	
-	returns gallery for the user, specified by id,  supports pagination
+	returns gallery for the user, specified by id,  supports pagination \\
 	
 \item {Users}	
  
@@ -485,7 +554,7 @@ REST API design is an important part of the analysis process. It helps defining 
 		\begin{itemize}
 			\item \verb|:id|	- user id, string
 		\end{itemize}		
-	updates information about the user specified by id	
+	updates information about the user specified by id	\\
 \item {OAuth} 
 
 	 \verb POST  \url{/oauth/token}	
@@ -499,18 +568,19 @@ REST API design is an important part of the analysis process. It helps defining 
 		\end{itemize}		
 	
 	If username and password are correct the endpoint returns a token for authenticated communication with the server.
-	
-	All of the above listed endpoints are only accessed with a valid token.
 \end{itemize}
+	All of the above listed endpoints are only accessed with a valid token with exception of the index which provides documentation.
+	
 \subsection{Authentication}
 
 One of the functional requirements for the server is to provide authentication for users. The authentication will be implemented using OAuth 2 protocol. It fits well our needs because we will be communicating with our server through API from two different applications. Figure \ref{fig:oauth} demonstrates OAuth 2 authentication flow. There are 3 main actors in the authentication process.
 
 \begin{itemize}
 
+
 \item User
 
-The user owns a resource which an application wants to access. In the case of authentication the resource is user information, their credentials and personal information, which 3d party needs to access in order to identify and authenticate the user.
+The user owns a resource which an application wants to access. In the case of authentication the resource is user information, their credentials and personal information. The 3d party needs to access it in order to identify and authenticate the user.
 
 \item Service API
 
@@ -537,9 +607,9 @@ There are several different authorisation grants that are supported by OAuth 2. 
 
 In order for this whole process to work the client application has to be previously registered with the Authorisation/Resource server. After the registration it will receive a client id and a client secret or so called client credentials which are used for authenticating with the server.
 
-Example of the request with authorisation grant which is described in the step 4 is shown on listing \ref{lst:json}. \\~\\
-\verb|POST| \url{https://oauth.example.com/api/oauth/token}
-\begin{listing}
+Example of the request with authorisation grant which is described in the step 4 is showed below. \\~\\
+\verb|POST| \url{https://oauth.example.com/api/oauth/token} \\ Request body:
+
 \begin{lstlisting}[language=JavaScript]
 {
     "grant_type": "password",
@@ -549,9 +619,6 @@ Example of the request with authorisation grant which is described in the step 4
     "password": "secretpassword"
 }
 \end{lstlisting}
-\caption{Request body of user authorisation example} 
-\label{lst:json}
-\end{listing}
 
 
 \begin{figure}[!ht]
@@ -560,148 +627,178 @@ Example of the request with authorisation grant which is described in the step 4
 	\label{fig:oauth}
 \end{figure}
 
-\subsection{Retrieval by coordinates}
+\subsection{Files processing}
+
+The server is working with files attached to the messages, 3d objects and their thumbnails. 
+
+Web application will have a form which will be used for uploading 3d objects and their thumbnails to the server. The application will be sending a request with content type  \verb|multipart/form-data| which needs to be parsed in order to retrieve information and files from it. Node.js offers a number of handy middleware which parses \verb|multipart/form-data| and works with files. After a thorough research I chose \verb|node-multiparty| available at \cite{multiparty}. This library parses the form data and makes files attached accessible. 
+
+Thumbnails for 3d objects have to be resized to smaller size not to waste space on the server. For resizing  a \verb|node-imagemagick| library available at \cite{node-imagemagick} was chosen, which uses original \verb|ImageMagick| library availble at \cite{imagemagick}.
+
+Message attachment files which are not objects are resized on the side of the mobile application. Therefore no further server side processing is needed. 
+
+\subsection{Distance and radius retrieval}
 
 One of the main functions of the server will be returning messages within a given radius of user's current GPS location. The calculation of the distance from the user's GPS location will be done using sphere geometry.
 
 In the case of distance calculation there are two ways one can choose - either using Euclidean geometry or spherical geometry. Euclidean geometry is also known as the 'plane geometry'. It is a type of geometry where the internal angles of triangles add up to 180 degrees, parallel lines do not ever cross and everything is flat. Spherical geometry on the contrary does not take account of flat world and works with 3d. Since the earth is shaped in a form of a sphere it would be better to use spherical geometry for distance calculations, since they will be more precise.
 %SOURCE
 
-\subsection{Files processing}
+The messages endpoint returns messages within the preset radius from given GPS coordinates. Retrieval of messages needed to be fast and effective with the expected growing message collection. Simple search with comparing distances between given GPS and message's location was not suitable. 
 
-The server will be working with files attached to the messages, 3d objects and their thumbnails. 
+MongoDb has a powerful system of geo queries. It supports both 2d and sphere geo queries. To use these queries document data have to be saved in GeoJSON format. Documents in this format consist of an array of coordinates (longitude, latitude) and a type. There is a vast selection of types such as for instance "Polygon" or "Geometry Collection". My geo location data are representing a single point therefore I chose type "Point". The example of data in preferred GeoJSON format is shown below.
 
-Web application will have a form which will be used for uploading 3d objects and their thumbnails to the server. The application will be sending a request with content type  \verb|multipart/form-data| which needs to be parsed in order to retrieve information and files from it. Node.js offers a number of handy middleware which parses \verb|multipart/form-data| and works with files. After a thorough research I chose \verb|node-multiparty| available at \cite{multiparty}. This library parses the form data and makes files attached accessible. 
+\begin{lstlisting}[language=JavaScript]
+"loc" : {
+    "type" : "Point",
+        "coordinates" : [
+        14.422061,
+        50.087657
+    ]
+}
+\end{lstlisting}
 
-Thumbnails for 3d objects have to be resized to smaller size in order to avoid wasting space on the server. For resizing  a \verb|node-imagemagick| library available at \cite{node-imagemagick} was chosen, which uses original \verb|ImageMagick| library availble at \cite{imagemagick}.
+The following is an example of geo query. Another optimisation of search performance is creation of a 2dsphere index on location field.
 
-Message attachment files which are not objects are resized on the side of the mobile application. Therefore no further server side processing is needed. 
+\begin{lstlisting}[language=JavaScript]
+loc: {
+    $geoWithin: {
+        $centerSphere: [
+            [
+                longitude,
+                latitude
+            ],
+            radius
+        ]
+    }
+}
+\end{lstlisting}
 
+This is a simplified example of mongoose message model with index definition. The actual example of the model is more complicated and can be found in the server implementation in folder \verb|models| under name \verb|message.js|.
 
-\section{Mobile application}
-The mobile application is built with React Native which is a purely view framework. 
+Firstly you include \verb|mongoose| library on line 1 and define Schema on line 2. Specific schema definition follows on lines 4 to 9. The line 11 defines index \textit{2dsphere} over \verb|loc| field of the model. Lines 12 and 13 register and export the model.
+ 
+\begin{lstlisting}[language=JavaScript]
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-\subsection{Application design}
-
-
-
-\subsubsection{Redux}
-Redux is a predictable state container for Javascript application. It is a small library which helps control and structure application's state hierarchy. The main concern in javascript application is taking care of the state of application. 
-
-Redux was inspired by Flux, which is a way Facebook creates their applications. But Redux was made smaller and easier to use.  %SOURCE
-
-\subsubsection{Data Flow}
-Redux's biggest advantage it's the way it handles the data flow. Redux has unidirectional data flow, which provides the developer with a clear and easy to debug application.
-
-The structure of the application using redux is shown on \ref{fig:redux}. Each part of the scheme plays vital role.
-\begin{itemize}
-\item{Presentational and Container Components}
-
-Presentational components are components which do not hold any logic inside themselves. Everything they need for functioning they receive passed in their props from the Container Components. In the case presentational component needs to fire an event it uses callbacks which are passed to it in props. There is no logic in Presentational Components.
-
-
-Container Components are the once who dispatch events when presentational components receive user interaction. They also take care of navigation. Sometimes they referred to as smart components and presentational components as dumb components.
-
-\item{Action makers}
-
-Action makers are the ones who return actual action objects for the actions dispatched in Container Components.
-
-\item{Store}
-
-Store holds the application state. The application state changes with different actions and throughout the whole run of the application it is held by the store. Application state can be defined as a set of objects, collections of objects, cached data from the server, there could be booleans, integer or string values which are requested by the application. For instance the state can hold an authentication cookies value f the user has been successfully logged in the system.
-
-\item{Reducers}
-
-Reducers are pure functions. Pure functions are functions which do not modify their arguments. Reducers accept as argument the current state of the application and an action which was dispatched. They return a new state of the application, by returning a completely new object, could be the clone of the current state but can never be a modified current state. This is due to the reasons that i ll explain later (components subscribed to props). Reducers are basically state machines which tell which state follows after the state you are in if you do the given action.
-
-\end{itemize}
-
-\begin{figure}[!ht]
-	\includegraphics[width=1\textwidth]{assets/redux.png}}
-	\caption{Redux structure. Unidirectional dataflow.}	
-	\label{fig:redux}
-\end{figure}
+var messageSchema = new Schema({
+        loc: {
+            coordinates: {type: [Number], required: true},
+            type: {type: String, required: true}
+        }
+    });
+messageSchema.index({loc : '2dsphere'});
+var Message = mongoose.model('Message', messageSchema);
+module.exports = Message;
+\end{lstlisting}
 
 
+\subsection{Load balancer}
 
-Action creation rules
-https://github.com/acdlite/flux-standard-action
+Among the non functional requirements there are Scalability and Performance. In other words the server has to be able to cope with growing requests load and it should be easily scalable if needed. Using load balancer fulfils both of these requirements. Load balancer will forward requests to the chosen server instance in case others are too busy to process new requests. Scalability of the server can be achieved with running more instances and configuring load balancer to register these new server instances.
 
-Reducer composition
+Load balancer I used is called \verb|Nginx|. It is an http server but is also a reverse proxy server and used for load balancing. Load balancing strategy used on the server is \textit{least connectivity}. \textit{Least connectivity} strategy means that the server with the smallest number of connections will receive new request. \cite{nginx-lb} Another advantage of having nginx taking care of incoming requests is that it can also take care of serving static content instead of the actual server. 
 
-
-\subsection{Augmented Reality}
-\label{section:ar}
-
-After conducting a thorough research concerning various Augmented reality implementations, techniques and frameworks I limited my options to three choices. My goal is to be able to place a 3D object at a given GPS location. Therefore I was looking for a location aware solution. Below are listed different AR solutions I was considering.
-
-\begin{itemize}
-	\item{Open source Augmented Reality SDK}
-	
-	There are a few open source AR SDKs with IOS support, implemented in Objective C. The one which seemed to be the most relevant can be found at  \url{https://github.com/promet/PRAugmentedReality}. This is neat small framework which supports even the older iPhones. It supports a type of AR called POI or Points Of Interest. It is well documented and has a video tutorial on how to get started with the framework. There are also well commented code and a sample application.
-	
-	Advantages:
-	\begin{itemize}
-		\item{Support for Points of Interest} therefore Geo location support
-	\end{itemize}
-	
-	Disadvantages:
-	\begin{itemize}
-		\item{No support for 3D object. The developer would have to implement 3D object rendering himself}
-		\item{Implemented in Objective C, which is not the most developer friendly language}
-		\item{The last update of the framework was performed 2 years ago. This basically means the framework is not supported anymore. There is no community and in case of problems or bugs the developer has to deal with everything himself. There is an option of communicating with the author, but he didn't respond to my email inquiring about the possible support of 3D images, so I would not rely on that.}
-	\end{itemize}
-
-	Conclusion:
-	This option does not seem to be suitable as it is requires a deep understanding of Objective C in order to implement rendering and fix possible problems which might arise during development. The focus of this thesis is to explore new way of creating apps such as using javascript wrappers for objective C to create pure native experience.
-
-	\item{Unity 3D - Kudan AR plugin}
-	
-	Kudan is an Augmented Reality SDK.  Kudan support iOS, Android and Unity cross platform game engine. It offers a much better Augmented Reality experince using its Advanced tracking for both marker and markerless augmented reality. For more information about Kudan please see official website at \cite{kudan}
-	
-	Advantages:
-	\begin{itemize}
-		\item{SLAM} - Simultaneous localisation and mapping is a great technique displaying 3d objects. It has already been shortly described in the previous chapter. The beauty of it is that it maps the environment and puts the object in it so it looks natural. For instance if your camera would be facing a table the object will be put on the surface of the table.
-		\item{}
-		
-	\end{itemize}
-	
-	Disadvantages:
-	\begin{itemize}
-		\item{SLAM} - even though it is an advantage, it is also a disadvantage since for my purposes I need to have an object placed at a certain location. Unfortunately it is not possible with SLAM since it is not a location based technique. Therefore when using SLAM and turning the camera around, the object will always stay in front of the camera, which is an unwanted result for my purposes.
-		\item{New framework} - it is not a severe disadvantage, but usually new frameworks tend to be buggy. It is better to wait some time until the next version is released to start using any new system.
-		\item{Resource changing} - the mobile application is supposed to serve the url of the AR object to render. Kudan Unity plugin did not offer an easy and pretty way of doing so. With Kudan serving new AR object would involve physical moving of files and recompiling which would not be possible in my application.
-	\end{itemize}	
-	\item{Wikitude AR}
-	Advantages:
-	\begin{itemize}
-		\item{Javascript API} - Wikitude provides a clean API with good documentation. It is a huge advantage since the main technologies I am using in my thesis are all javascript based.
-		\item{Big community and support} - The Wikitude AR has a big community and a forum with a lot of different issue to browse through. It has been already developed for several year, which means loads of useful features were implemented and bugs eliminated.
-		\item{iOS integration} - My application starting point is objective C project and I was looking for a solution which would be easily integrated in Native - React Native flow. The documentation provides with a good example of how to work with the Wikitude.
-		\			
-	\end{itemize}
-	
-	Disadvantages:
-	\begin{itemize}
-		\item{Trial version} - the only available version to use is a free version, however with full support of all SDK's features, is trial. There is a watermark on the camera screen when using AR.
-	\end{itemize}		
-\end{itemize}
-
-After careful consideration I decided to choose the Wikitude AR SDK with trial version. It seems to be the best solution, not minding the trial flags on the camera. It provides an easy way of integrating the framework in my application. Javascript API is also a very big advantage for my purposes.
-
-\section{Web application}
-
-Web application will be implemented using react. 
-
-%source https://web-design-weekly.com/2014/09/24/diving-webpack/
-\subsection{Webpack}
-Webpack is a module bundler, a tool which packs the whole application together, translates everything needed to pure javascript, html and css. The bigger your app becomes the more modularised it is. It is a good development approach to break up your javascript application into multiple modules. The code becomes cleaner and easier to read, the loading time of your application also decreases since you do not load everything at once. Webpack takes these different modules with dependencies and merges them.
+The main part of the Nginx configuration file with registered load balancer is showed below. It is preferable to use \textit{ssl} connection for running the server. The example contains configuration for connecting over \textit{ss}l and without. Lines 3 to 8 of the configuration file define the upstream, the servers which will be processing incoming requests. The load balancing strategy is defined on line 4. Lines 13 and 14 indicate path to log files. The static content serving is configured on line 16. Line 20 defines the proxy pass, which name matches name of the upstream. This configuration allows all requests coming to \url{http://127.0.0.1:8080} be forwarded to one of the server from upstream according to \textit{leact connectivity} strategy. The configuration on lines 27 to 34 does the same but for the secure connection via \verb|https://| .
 
 
+\begin{lstlisting}[language=JavaScript]
 
-\chapter{Realisation}
+http {
+    upstream air_servers {
+        least_conn;                 # Least Connections strategy
+        server 127.0.0.1:3000;      # NodeJS AirServer 1
+        server 127.0.0.1:3001;      # NodeJS AirServer 2
+        server 127.0.0.1:3002;      # NodeJS AirServer 3
+    }
 
-\section{Server}
+    server {
+        listen       8080;
+        
+        access_log /var/log/nginx/access.log;
+        error_log  /var/log/nginx/error.log error;
+
+        location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {
+             root /path/to/static/files;
+        }        
+
+        location / {
+            proxy_pass http://air_servers;
+        }
+    }
+
+    # HTTPS server
+    
+    server {
+        listen 443;
+        
+        ssl on;
+        ssl_certificate     /etc/ssl/example.com/example.com.crt;
+        ssl_certificate_key /etc/ssl/example.com/example.com.key;
+
+       # plus the same configuration as above
+    }
+}
+
+
+\end{lstlisting}
+
+
+\subsection{Queue}
+
+Priority job queue was used in this project to solve the following problems. 
+
+Firstly when creating a new message the user has to set message's validity in days, from 1 up to 365 days. When a message is created it is valid immediately and becomes invalid after the validity time expires. I was looking for a way to set the valid flag to false when the message expires. Job queue seemed like the perfect solution. 
+
+Secondly I needed to update message's location details with city and country for the statistics endpoints. This involved calling The Google Maps Geocoding Api \cite{maps-api}, waiting for response, parsing the response and updating the document in the database. This slightly lengthy process could not take part while saving the message as it would affect user experience negatively and the application could seem slow. Furthermore in the case of potential problems which could arise from calling 3d party API the whole message saving process could be sabotaged.
+
+\subsubsection{Kue}
+
+Kue is a very simple priority job queue backed up by Redis and created specifically for node.js .
+
+"Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster." The description of Redis is taken from its official website found at \cite{redis}
+
+The complete documentation for \verb|kue| is available at \cite{kue}
+
+\subsubsection{Configuration}
+
+Kue as every job queue needs to have consumers and producers created. The producer part of the code was put in the processing of message POST request. Here is the example of the producer code. 
+
+\begin{lstlisting}[language=JavaScript]
+function addToValidQueue(queue, message){
+    var job = queue.create('valid-queue', {
+            title: 'unset valid',
+            message_id: message.id,
+        })
+        .delay(message.validity)
+        .save(function (err) {
+            if (err) {
+            	log(err);
+            }
+         });
+}
+\end{lstlisting}
+
+
+I created a \verb|queue.helper.js| which took care of putting jobs in the queues. There are two queues for two types of jobs: 'valid-queue' and 'geo-queue'. Valid flags jobs had to be delayed so they had set delayed time period calculated from the number of valid days input by the user. The delaying of a job is part of the kue and is implemented by using \verb|delay()| function on line 6 in the example above. I also created two consumers - \verb|geoConsumer.js| and \verb|validConsumer.js|. The example of geo consumer is showed below. The \verb|geoCode| function in the example on line 5 further processes received job data.
+
+\begin{lstlisting}[
+	language=JavaScript
+	caption=Node consumer example
+	]
+var kue = require('kue');
+var queue = kue.createQueue();
+
+queue.process('geo-queue', function (job, done) {
+    geoCode(job.data, done);
+});
+
+\end{lstlisting}
+
+
+
+\subsection{Libraries used}
 \subsection{Structure}
 
 The directory structure of the server is shown on figure \ref{fig:server_dir}. The base for this structure was generated by the Express directory generator. 
@@ -769,187 +866,42 @@ The \verb|controllers| folder consists of two authorization controllers. The \ve
 \end{figure}
 
 \newpage
-\subsection{Distance and radius retrieval}
-
-The messages endpoint returns messages within the preset radius from given GPS coordinates. Retrieval of messages needed to be fast and effective with the expected growing message collection. Simple search with comparing distances between given GPS and message's location was not suitable. 
-
-MongoDb has a powerful system of geo queries. It supports both 2d and sphere geo queries. To use these queries document data have to be saved in GeoJSON format. Documents in this format consist of an array of coordinates (longitude, latitude) and a type. There is a vast selection of types such as for instance "Polygon" or "Geometry Collection". My geo location data are representing a single point therefore I chose type "Point". The example of data in preferred GeoJSON format is shown on listing \ref{lst:geoJSON}
-
-\begin{listing}
-\begin{lstlisting}[language=JavaScript]
-"loc" : {
-    "type" : "Point",
-        "coordinates" : [
-        14.422061,
-        50.087657
-    ]
-}
-\end{lstlisting}
-\caption{GeoJSON}
-\label{lst:geoJSON}
-\end{listing}
-
-The example of geo query is showed on listing \ref{lst:geoQ} Another optimisation of search performance is creation of a 2dsphere index on location field. An example of index definition in mongoose model is shown on \ref{lst:2dsphere}
-
-
-\begin{listing}
-\begin{lstlisting}[language=JavaScript]
-loc: {
-    $geoWithin: {
-        $centerSphere: [
-            [
-                longitude,
-                latitude
-            ],
-            radius
-        ]
-    }
-}
-\end{lstlisting}
-\caption{Geo query finding for coordinates within radius}
-\label{lst:geoQ}
-\end{listing}
-
-
-\begin{listing}
-\begin{lstlisting}[language=JavaScript]
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-
-var messageSchema = new Schema({
-        loc: {
-            coordinates: {type: [Number], required: true},
-            type: {type: String, required: true}
-        }
-    });
-messageSchema.index({loc : '2dsphere'});
-var Message = mongoose.model('Message', messageSchema);
-module.exports = Message;
-\end{lstlisting}
-\caption{Part of the mongoose model with 2d sphere index definition.}
-\label{lst:2dsphere}
-\end{listing}
-
-
-\subsection{Load balancer}
-
-Among the non functional requirements there are Scalability and Performance. In other words the server has to be able to cope with growing requests load and it should be easily scalable if needed. Using load balancer fulfils both of these requirements. Load balancer will forward requests to the chosen server instance in case others are too busy to process new requests. Scalability of the server can be achieved with running more instances and configuring load balancer to register these new server instances.
-
-Load balancer I used is called \verb|Nginx|. It is an http server but is also a reverse proxy server and used for load balancing. Load balancing strategy used on the server is \textit{least connectivity}. \textit{Least connectivity} strategy means that the server with the smallest number of connections will receive new request. \cite{nginx-lb} Another advantage of having nginx taking care of incoming requests is that it can also take care of serving static content instead of the server. 
-
-The following listing \ref{lst:nginx} shows the main part of the Nginx configuration file with registered load balancer. It is preferable to use ssl connection for running the server. There are examples for connecting over ssl and without. Lines 3 till 9 of the configuration file define the upstream, the servers which will be processing incoming requests. The load balancing strategy is defined on line 4. Lines 13 and 14 indicate path to log files. The static content serving is configured on line 16. Line 20 finally defines proxy pass, which name matches name of the upstream. This configuration allows all requests coming to \url{http://127.0.0.1:8080} be forwarded to one of the server from upstream according to \textit{leact connectivity} strategy. The configuration on lines 27 to 34 does the same but for the secure connection via \verb|https://| .
-
-
-\begin{listing}
-\begin{lstlisting}[language=JavaScript]
-
-http {
-    upstream air_servers {
-        least_conn;                 # Least Connections strategy
-        server 127.0.0.1:3000;      # NodeJS AirServer 1
-        server 127.0.0.1:3001;      # NodeJS AirServer 2
-        server 127.0.0.1:3002;      # NodeJS AirServer 3
-    }
-
-    server {
-        listen       8080;
-        
-        access_log /var/log/nginx/access.log;
-        error_log  /var/log/nginx/error.log error;
-
-        location ~ ^/(images/|img/|javascript/|js/|css/|stylesheets/|flash/|media/|static/|robots.txt|humans.txt|favicon.ico) {
-             root /path/to/static/files;
-        }        
-
-        location / {
-            proxy_pass http://air_servers;
-        }
-    }
-
-    # HTTPS server
-    
-    server {
-        listen 443;
-        
-        ssl on;
-        ssl_certificate     /etc/ssl/example.com/example.com.crt;
-        ssl_certificate_key /etc/ssl/example.com/example.com.key;
-
-       # plus the same configuration as above
-    }
-}
-
-
-\end{lstlisting}
-\caption{Part of the Nginx configuration file - nginx.conf. Load Balancer configuration.}
-\label{lst:nginx}
-\end{listing}
-
-
-\subsection{Queue}
-
-Priority job queue was used in this project to solve the following problems. 
-
-Firstly when creating a new message the user has to set message's validity in days, from 1 up to 365 days. When a message is created it is valid immediately and becomes invalid after the validity time expires. I was looking for a way to set the valid flag to false when the message expires. Job queue seemed like the perfect solution. 
-
-Secondly I needed to update message's location details with city and country for the statistics endpoints. This involved calling The Google Maps Geocoding Api \cite{maps-api}, waiting for response, parsing the response and updating the document in the database. This slightly lengthy process could not take part while saving the message as it would affect user experience negatively and the application could seem slow. Furthermore in the case of potential problems which could arise from calling 3d party API the whole message saving process could be sabotaged.
-
-\subsubsection{Kue}
-
-Kue is a very simple priority job queue backed up by Redis and created specifically for node.js .
-
-"Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs and geospatial indexes with radius queries. Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence, and provides high availability via Redis Sentinel and automatic partitioning with Redis Cluster." The description of Redis is taken from its official website found at \cite{redis}
-
-The complete documentation for \verb|kue| is available at \cite{kue}
-
-\subsubsection{Configuration}
-
-Kue as every job queue needs to have consumers and producers created. The producer part of the code was put in the processing of message POST request. The example of the producer code is shown on listing \ref{lst:prod} I created a \verb|queue.helper.js| which took care of putting jobs in the queues. There are two queues for two types of jobs: 'valid-queue' and 'geo-queue'. Valid flags jobs had to be delayed so they had set delayed time period calculated from the number of valid days input by user. The delaying of a job is part of the kue and is implemented by using \verb|delay()| function on line 6 at listing \ref{lst:prod}. I also created two consumers - \verb|geoConsumer.js| and \verb|validConsumer.js|. The example of geo consumer is shown on listing \ref{lst:consumer}. The \verb|geoCode| function in the listing on line 6 further processes received job data.
-
-
-\begin{listing}
-\begin{lstlisting}[language=JavaScript]
-function addToValidQueue(queue, message){
-    var job = queue.create('valid-queue', {
-            title: 'unset valid',
-            message_id: message.id,
-        })
-        .delay(message.validity)
-        .save(function (err) {
-            if (err) {
-            	log(err);
-            }
-         });
-}
-\end{lstlisting}
-\caption{Producer}
-\label{lst:prod}
-\end{listing}
-
-
-\begin{listing}
-\begin{lstlisting}[
-	language=JavaScript
-	caption=Node consumer example
-	]
-
-var kue = require('kue');
-var queue = kue.createQueue();
-
-queue.process('geo-queue', function (job, done) {
-    geoCode(job.data, done);
-});
-
-\end{lstlisting}
-\caption{Node consumer} 
-\label{lst:consumer}
-\end{listing}
-
-
-
-\subsection{Libraries used}
-
 \section{Mobile Application}
+
+\subsubsection{Redux}
+Redux is a predictable state container for Javascript application. It is a small library which helps control and structure application's state hierarchy. The main concern in javascript application is taking care of the state of application. 
+
+Redux was inspired by Flux, which is a way Facebook creates their applications. But Redux was made smaller and easier to use.  %SOURCE 
+Redux's biggest advantage it's the way it handles the data flow. Redux has unidirectional data flow, which provides the developer with a clear and easy way to develop and debug the application.
+
+The structure of the application using redux is shown on \ref{fig:redux}. Each part of the scheme plays a vital role.
+\begin{itemize}
+\item{Presentational and Container Components}
+
+Presentational components are components which do not hold any logic inside themselves. Everything they need for functioning they receive passed in their props from the Container Components. In the case presentational component needs to fire an event it uses callbacks which are passed to it in props. There is no logic in Presentational Components.
+
+
+Container Components are the ones who dispatch events when presentational components receive user interaction. They also take care of navigation. Sometimes they referred to as smart components and presentational components as dumb components.
+
+\item{Action makers}
+
+Action makers are the ones who return actual action objects for the actions dispatched in Container Components.
+
+\item{Store}
+
+Store holds the application state. The application state changes with different actions and throughout the whole run of the application it is held by the store. Application state can be defined as a set of objects, collections of objects, cached data from the server, there could be booleans, integer or string values which are requested by the application. For instance the state can hold an authentication cookies value if the user was successfully logged in the system.
+
+\item{Reducers}
+
+Reducers are pure functions. Pure functions are functions which do not modify their arguments. Reducers accept the current state of the application and an action which was dispatched as arguments. They return a new state of the application, by returning a completely new object. It can be the clone of the current state but can never be a modified current state. Reducers are basically state machines which tell which state follows after the state you are in if you dispatch the given action.
+
+\end{itemize}
+
+\begin{figure}[!ht]
+	\includegraphics[width=1\textwidth]{assets/redux.png}}
+	\caption{Redux structure. Unidirectional dataflow.}	
+	\label{fig:redux}
+\end{figure}
 
 \subsection{Structure}
 \subsection{Augmented Reality}
