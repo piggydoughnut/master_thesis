@@ -69,9 +69,9 @@
 \authorFN{Mikhailova} %author's surname
 \author{Mikhailova Daria} %author's name without academic degrees
 \authorWithDegrees{Mikhailova Daria \& Bc.} %author's name with academic degrees
-\supervisor{Jan Vaclavik}
-\acknowledgements{THANKS}
-\abstractEN{Summarize the contents and contribution of your work in a few sentences in English language.}
+\supervisor{Ing. Jan Vaclavik}
+\acknowledgements{I would like to thank my supervisor Ing. Jan Vaclavik for his assistance and advice while leading this project and for giving me a chance to learn new technologies and bring one of my ideas to life.}
+\abstractEN{The goal of this thesis is to explore a new way of creating mobile applications using Javascript technologies and implement a complete system using Javascript. The system will comprise of mobile application which brings a new way of communicating by leaving messages at GPS locations, web application and a REST API server.}
 \abstractCS{V n{\v e}kolika v{\v e}t{\' a}ch shr{\v n}te obsah a p{\v r}{\' i}nos t{\' e}to pr{\' a}ce v {\v c}esk{\' e}m jazyce.}
 \placeForDeclarationOfAuthenticity{Prague}
 \keywordsCS{Replace with comma-separated list of keywords in Czech.}
@@ -101,24 +101,27 @@ All of the mentioned above makes messaging applications and social networks a vi
 
 We use messaging applications and social media to communicate with people we already know. We become highly suspicious when it comes to meeting new people in the case we do not have any friends in common. Let's use Facebook as an example. To be honest Facebook was not created for connecting with strangers and its main purpose is to stay connected with your friends and family. The old superstition that many people online, who are not your acquaintances, are not who they pretend to be is still on. So how do we meet new people online? Facebook offers many interest clubs and event pages where we come in contact with people we do not know, but hardly any meetings or friendships arise from that. Internet also offers old school forums and communities where people talk about their common interests such as movies or music. But in case you just want to meet someone not based on your interest, just a random person the only way to do it is via a dating site. You have to sign up for a dating website or download an app such as Tinder. There are many people on dating sites who are just looking for friends and not long life partners. In the wide circles looking for friends on dating websites is considered slightly strange. If you are extravert enough you can just meet people on the street or in the bus. But what do you do when you are in a foreign country? What do you do when you are just wandering around looking for a company to do some sightseeing? What if you just really liked this museum and want to find so-thinking people without the whole going extremely public about it?
 
-Meet the GPS pinned messaging application. The idea is very simple. Usual messaging applications require the communicating parties to identify themselves with each other, either using their phone numbers or emails. This creates a certain barrier in communication. People are not that interested or afraid of just chatting with strangers online since in order to do so they have to reveal a lot of their personal information to the other party. The GPS pinned messaging application does not require any details from the other party in order to communicate. Imagine you are travelling and you just moved in a hotel. You do not know anyone in the city and would like to have a company for the sightseeing. In this case you just leave a message right on the GPS location of your room and everyone in the hotel would see it, since they would be within a short reach o your GPS location. Anyone could answer your message and probably very quickly you will manage to find yourself a company for the walk in the city.
+Meet the GPS pinned messaging application. The idea is very simple. Usual messaging applications require the communicating parties to identify themselves with each other, either using their phone numbers or emails. This creates a certain barrier in communication. People are not that interested or afraid of just chatting with strangers online since in order to do so they have to reveal a lot of their personal information to the other party. The GPS pinned messaging application does not require any details from the other party in order to communicate. Imagine you are travelling and you just moved in a hotel. You do not know anyone in the city and would like to have a company for the sightseeing. In this case you just leave a message right on the GPS location of your room and everyone in the hotel would see it, since they would be within a shorsert reach o your GPS location. Anyone could answer your message and probably very quickly you will manage to find yourself a company for the walk in the city.
 
 GPS messaging application allows a user to leave messages pinned to GPS location anywhere. It could be a review message saying how much someone liked a certain gallery or a message warning fellow travellers of scams or robberies happening in the area. University students could exchange messages with the whole lecture hall during the lecture. The only way to read such a message is to be within short distance of it. You cannot read the message if you are far away. This makes messaging a quest, when you go through the city with new messages appearing on the map. This brings freedom in messaging. It is almost the same as you would go and directly talk to someone. This messaging style leaves out all the unnecessary information which you have on the social networks, it keeps the users identity private and therefore you do not know complete biography of a person before talking to them. And most importantly it allows you to interact with anyone who is within your GPS reach. It is private and public at the same time, limited by location and messages validity only.
 
 \setsecnumdepth{all}
 \chapter{Requirements}
-\section{Messaging application}
 
-The main goal is to create a messaging application which will allow users to pin messages to GPS location. There will be two types of messages. Firstly users will post simple text messages with an option of attaching a picture. Secondly users are able to post a 3D object. Both types of messages are comment-able. Each posted message can have a validity from 1 day up to 365 days. Users are only able to read a message once they arrive at its GPS location. The user will be able to browse through his messages and in case someone commented on his message he will be notified of it.
+The main goal is to create a system consisting of a messaging application which will allow users to pin messages to GPS location, web application for uploading 3d objects and viewing statistics and a REST API server to communicate with both of them. 
 
-This application serves as a real time companion. There is no overload of information you do not want to see at the moment as you have when scrolling through social media feeds. The app serves you relevant and fresh information left by other users based on your current location.
+Messaging application will offer two types of messages. Firstly users will post simple text messages with an option of attaching a picture. Secondly users will be able to post a 3D object. Both types of messages are comment-able. Each posted message can have a validity from 1 day up to 365 days. Users are only able to read a message once they arrive at its GPS location. The user will be able to browse through his messages and in case someone commented on his message he will be notified of it. 
 
-\section{Functional requirements}
+Web application is a complimentary portal which allows to browse through a common 3d gallery and choose objects for messages, upload your own 3d objects and view messaging statistics.
+
+The server will be providing data for both applications and will also server as an authorization authority.
+
+\section{System functional requirements}
 
 \begin{enumerate}
 \item{Registration}
 
-User can register using their email and password.
+User can register using their email and password using mobile application.
 
 \item{Authentication}
 
@@ -126,7 +129,7 @@ Users will be authenticated through tokens using OAuth 2 protocol.
 
 \item{Leave a message}
 
-The user is able to leave a message pinned to his/her GPS location. There is an option of adding an image to the message.
+The user is able to leave a message pinned to his/her GPS location using mobile application. There is an option of adding an image to the message.
 
 \item{Leaving a 3D object}
 
@@ -138,7 +141,7 @@ The user is able to read a message only once he/she is close to its GPS location
 
 \item{Comment message}
 
-The user is able to comment any message he has stumbled upon.
+The user is able to comment any message he stumbled upon.
 
 \item{User browses through his messages}
 
@@ -146,15 +149,16 @@ The user will be able to browse through a list of the messages he posted and see
 
 \item{View statistics}
 
-Users can view statistics of their messages, for instance how many times the message has been viewed and how many comments were left. There will also be general statistics for everyone showing popularity of different countries by the amount of message.
+Users can view statistics of their messages, for instance how many times the message has been viewed and how many comments were left. There will also be general statistics for everyone showing popularity of different countries by the number of messages.
 
 \item{View and change user details}
 
-The user has a choice of either showing details about himself or not. The only compulsory public detail is username. The detail which can be shared with other is user's country.
+The user will be able to update his profile using mobile application. He will be able to upload a profile picture, choose a country, change email or password.
 
 \end{enumerate}
 
-\section{Non functional requirements}
+
+\subsection{System non functional requirements}
 
 \begin{enumerate}
 
@@ -185,6 +189,73 @@ The application should be created using technologies that it would be easy to ex
 \item{Scalability}
 
 The application needs to be able to cope with a growing amount of requests.
+\end{enumerate}
+
+\section{System use cases}
+
+\subsection{User registers}
+\begin{enumerate}
+	\item The user opens the application and taps button \textit{Become a member} on the main screen.
+	\item The user fills in his username, email and password.
+	\item In the case no validation errors occur the user is redirected to the map.
+\end{enumerate}
+
+\subsection{User leaves a message on his GPS location}
+\begin{enumerate}
+	\item The user opens the application and logs in.
+	\item The user views the map, where his current location is marked.
+	\item The user taps on Add message to create a message.
+	\item The user chooses \textit{text message} and types in the text. He attaches a picture by pushing add image button and chooses the picture from his photo library. Then the user saves it and the app performs a redirect to the map view again.
+	\item The user can see that now next to the marker with his current location appears an icon symbolising his message.
+\end{enumerate}
+
+\subsection{User reads messages in the area}
+\begin{enumerate}
+	\item The user logs in.
+	\item The user opens the application and views the map.
+	\item There are icons on the map showing where different messages are. The user can only see messages in the preset radius from his current location.
+	\item The user walks closer to the chosen message on the map.
+	\item Once the user is close enough he can view the message and comment on it.
+\end{enumerate}
+
+\subsection{User comments on a message}
+\begin{enumerate}
+	\item The user logs in.
+	\item The user opens the application and views the map.
+	\item The user walks close to the chosen message on the map.
+	\item The user opens message detail.
+	\item There is a list of comments under the message and a comment box
+	\item The user posts a comment on a message an it immediately appears under the post box
+\end{enumerate}
+
+\subsection{User uploads a 3D object and posts it as a message}
+\begin{enumerate}
+	\item The user opens the web application.
+	\item The user logs in and chooses upload a 3D image from the menu.
+	\item There are instructions on uploading the image, which size and which formats are accepted.
+	\item The user uploads the 3D object, which is added to his object collection.
+	\item The user clicks on object collection in his profile and sees that his new object has been added.
+	\item The user open mobile application and performs Use case 1, but chooses to create a \textit{3d message} instead of \textit{text message} Under the message text box there is an option to view user's 3d gallery.
+	\item 3d gallery offers an option of viewing the object in AR before adding it to the message.
+	\item The user chooses a 3d object by viewing its thumbnail and the object is attached to the message
+	\item Once the message is saved the user is redirect to the map and can see that a new message has been added to his current location
+\end{enumerate}
+
+\subsection{User checks on updates for his mesages}
+\begin{enumerate}
+	\item The user opens the application and views the map, where his current location is marked.
+	\item The user opens the menu and chooses My messages.
+	\item The user sees a list of his messages with numbers of total views. In the case there has been a new comment on the message the user will see a new comment icon next to his message with a number of new comments.
+	\item The user can see that now next to the marker with his current location appears an icon symbolising his message.
+\end{enumerate}
+
+\subsection{Profile change}
+\begin{enumerate}
+	\item The user opens the application and views the map, where his current location is marked.
+	\item The user opens the menu and chooses Profile.
+	\item The user can see his information on the profile page.
+	\item The users taps on edit and now can edit his profile information. Each profie edit is confirmed with password. The user can add a profile picture, change email, password and country.
+	\item Once the profile changes are saved the user is redirected to the profile preview where he can see the changes.
 \end{enumerate}
 
 \chapter{Analysis and design}
@@ -289,9 +360,8 @@ In terms of security MongoDb does not allow sql injection since it does not use 
 
 %To conclude MongoDB serves best for the systems with a lot of unstructured or semi-structured data which might require frequent schema changes.
  
- %source https://web-design-weekly.com/2014/09/24/diving-webpack/
 \subsection{Webpack}
-Webpack is a module bundler, a tool which packs the whole application together, translates everything needed to pure javascript, html and css. The bigger your app becomes the more modularised it is. It is a good development approach to break up your javascript application into multiple modules. The code becomes cleaner and easier to read, the loading time of your application also decreases since you do not load everything at once. Webpack takes these different modules with dependencies and merges them.
+Webpack is a module bundler, a tool which packs the whole application together, translates everything needed to pure javascript, html and css. The bigger your app becomes the more modularised it is. It is a good development approach to break up your javascript application into multiple modules. The code becomes cleaner and easier to read, the loading time of your application also decreases since you do not load everything at once. Webpack takes these different modules with dependencies and merges them serving the content understandable by the browsers. \cite{webpack}
 
  
 \subsection{Augmented Reality}
@@ -353,7 +423,7 @@ The goal of the thesis is to create a messaging system which will comprise of a 
 	\end{figure}
 
 \section{Database}
-One of the most important parts of any application is a database design. It is essential to understand how will your data be handled, saved and organised before starting to build an application. As was already mentioned in the previous chapter I chose MongoDB for this implementation. MongoDB does not define a scheme design principles or design notation which I could use. Therefore I used a simple notation where each square element represents a single document in the collection as the figure \ref{fig:model} shows.
+One of the most important parts of any application is the database design. It is essential to understand how your data will be handled, saved and organised before starting to build an application. As was already mentioned in the previous chapter I chose MongoDB for this implementation. MongoDB does not define a scheme design principles or design notation which I could use. Therefore I used a simple notation where each square element represents a single document in the collection as the figure \ref{fig:model} shows. The arrows are the references, the way where the arrow is pointing the reference is provided.
 
 MongoDb has a different view on data than relational databases. Relational databases are focused on what answers we have when document based databases are more focused on what questions we have. Therefore minor duplications are allowed, because they will save time preventing the database performing joins and looking up information in other tables.
 
@@ -361,7 +431,7 @@ In GPS pinned application the main concern is the messages. We need to know on o
 \begin{itemize}
 \item Message
 
-Message contains all the necessary data about the message. The message document contains message text, its location with latitude and longitude and also city and country, which will be populated based on the Google Api response using coordinates. The message also contains object user with user's id and username. The case is that when previewing the message the only information we need to show the user is the username of the person who left the message. This minor duplication saves us time we would have spent looking through the user table in order to find correct user and get his username. MongoDb being a document database allows us saving the image as a base64 string right into the document. Maximum size of the MongoDB documents is 16 MB. We are dealing with mobile phone pictures which are on average between 2 and 5MB so we don't need to worry about space. %SOURCE! 
+Message contains all the necessary data about the message. The message document contains message text, description, which is a 150 characted substring of text, its location with latitude and longitude and also city and country, which will be populated based on the Google Api response using coordinates. The message also contains object user with user's id and username. The case is that when previewing the message the only information we need to show the user is the username of the person who left the message. This minor duplication saves us time we would have spent looking through the user table in order to find correct user and get his username. MongoDb being a document database allows us saving the image as a base64 string right into the document. Maximum size of the MongoDB documents is 16 MB. We are dealing with mobile phone pictures which are on average between 2 and 5MB so we don't need to worry about space. %SOURCE! 
 Just for the information in case of bigger images it is also possible to save them in the collection. MongoDb has a tool which splits big documents in several smaller allowing any size to be safely saved in the collection. 
 
 	\begin{figure}[!ht]
@@ -375,19 +445,28 @@ Some messages will be 3d obj and in order to save time and server side operation
 
 \item User
 
-User document contains standardised user data, authentication fields and an array of read message ids. We need to note down individual messages that user read so we can notify the user about comments on these messages. User document has a country object saved in it to save time querying. 
+User document contains standardised user data, authentication fields and a profile picture. User document also has a country string saved in it. The country list is saved in a json file and is provided to the user as a dropdown select in mobile application.
 
 \item GalleryFile
 
 Every user will have their own object gallery. They can upload their 3d object there according to the instructions given on the web. There will also be a common gallery from which users can choose objects they like and add them to their gallery. User gallery objects will have field user id populated while common gallery objects will have that field set to null. Each object will have a thumbnail and an actual file paths saved.
 
-\item Country
-
-I chose to create a separate country collection since I need to provide users with a country selection for their profile and it has to be unified for all users.
-
 \item View
 
 This collection will have info about when and which user viewed which message. This collection will be used for statistics and when checking for new comments and views of users messages.
+
+
+\item AccessTokens
+
+Access tokens are generated on the server side and are connected with a user and a client.
+
+\item RefreshTokens
+
+Refresh tokens are used for regaining an access token after it expired.
+
+\item Clients
+
+Clients documents is a list of client application communicating with the API. 
 
 \end{itemize}
 
@@ -783,10 +862,7 @@ function addToValidQueue(queue, message){
 
 I created a \verb|queue.helper.js| which took care of putting jobs in the queues. There are two queues for two types of jobs: 'valid-queue' and 'geo-queue'. Valid flags jobs had to be delayed so they had set delayed time period calculated from the number of valid days input by the user. The delaying of a job is part of the kue and is implemented by using \verb|delay()| function on line 6 in the example above. I also created two consumers - \verb|geoConsumer.js| and \verb|validConsumer.js|. The example of geo consumer is showed below. The \verb|geoCode| function in the example on line 5 further processes received job data.
 
-\begin{lstlisting}[
-	language=JavaScript
-	caption=Node consumer example
-	]
+\begin{lstlisting}[language=JavaScript]
 var kue = require('kue');
 var queue = kue.createQueue();
 
@@ -796,9 +872,45 @@ queue.process('geo-queue', function (job, done) {
 
 \end{lstlisting}
 
+\subsection{Supervisord}
+ 
+Nodejs server needs supervision and fast recovery in the case it fails. For this reason I needed a tool which would keep my server running and restarts it in the case of fatality.
 
+Supervisor is client/server system that allows easy monitoring and manipulations with UNIX processes. It has a very detailed and well readable documentation available at \cite{supervisor}. Once started it runs as a daemon process. It also has a command line utility for easy manipulation with processes. They can be restarted, stopped or started from the command line. To specify the programs one needs to run the configuration file is created. Below is showed an example of configuring a server to run. The full configuration file can be found in Appendix \ref{apx:supervisor} \\
+
+\begin{lstlisting}[language=C]
+[program:airServer]
+directory=/server/directory
+command=npm start
+autostart=true 
+stdout_logfile=/logs/server_out.log
+stderr_logfile=/logs/supervisor/server_err.log  
+\end{lstlisting} \\
+Queue consumers were also added to the supervisor configuration. 
+
+Supervisor provides standard output and error logging, which eliminates the need to setup a logging flow yourself.
 
 \subsection{Libraries used}
+
+I have used the npm package manager for taking care of the dependencies in the project. Among all the libraries I have used there are a few I would like to mention.
+
+\begin{itemize}
+	\item \textit{Passport} 
+	
+	It is a middleware used for authenticating requests. It uses so called strategies to define different authenticating techniques. There is around 300 strategies including authenticating through social networks and enterprise generation and more. \cite{pass}
+	\item {Async}
+	
+	Async is a powerful library providing function for working with asynchronous Javascript. Working with asynchronous functionality get tedious sometimes and this library helps to make it easy. You only need to provide you asynchronous function with a callback which will symbolise its completion.\cite{sync}
+	
+	\item {Babel}
+	
+	I needed a compiler to transform some of the Javascript syntax that I was using, for instance JSX  and ES2015. Babel supports latest versions of Javascript using syntax transformers. This lets developer use new features before the browser support comes out. \cite{babel}
+	
+	\item{Mongoose unique validator}
+	
+	This small library is extremely helpful. It is connected to as a middleware to a model in which unique indexes are defined. Mongoose unique validator does a great job in returning readable and user friendly validation messages. MongoDb unfortunately fails drastically in this. Its validation messages have to go through some serious parsing and analysing before being used. \cite{mvalid}
+\end{itemize}
+
 \subsection{Structure}
 
 The directory structure of the server is shown on figure \ref{fig:server_dir}. The base for this structure was generated by the Express directory generator. 
@@ -816,45 +928,17 @@ The \verb|controllers| folder consists of two authorization controllers. The \ve
 \begin{figure}
 	\dirtree{%
 		.1 bin .
-		.2 www\DTcomment{node start script}.
-		.1 config .
-		.2 config.js\DTcomment{main config of the server}.
-		.1 controllers .
-		.2 auth.controller.js\DTcomment{authorization strategies}.
-		.2 oauth2.controller.js\DTcomment{OAuth2 flow}.					
+		.1 config \DTcomment{server configs}.
+		.1 controllers \DTcomment{authorization controllers}.				
 		.1 data\DTcomment{mongodb documents directory}.
-		.1 docs .
-		.2 api.apib\DTcomment{api documentation api blueprint}.
-		.2 output.html\DTcomment{api documentation output}.
+		.1 docs \DTcomment{api documentation api blueprint}.
 		.1 kue\DTcomment{kue consumers}.
-		.2 geoConsumer.js .
-		.2 validConsumer.js . 		
-		.1 models\DTcomment{mongoose models}.
-		.2 client.js .
-		.2 comment.js .
-		.2 galleryFile.js .
-		.2 message.js .
-		.2 messageObj.js .
-		.2 refreshToken.js . 
-		.2 token.js .
-		.2 user.js .
-		.2 view .										
+		.1 logs .		
+		.1 models\DTcomment{mongoose models}.									
 		.1 public .
-		.2 gallery\DTcomment{3D gallery files and thumbnails}.
 		.1 routes\DTcomment{the thesis text directory}.
-		.2 files.js .
-		.2 index.js .
-		.2 messages.js . 
-		.2 users.js .		
 		.1 tests .		
 		.1 util\DTcomment{helpers}.
-		.2 common.helper.js .
-		.2 file.helper.js .
-		.2 messages.helper.js .
-		.2 query.helper.js .
-		.2 request.helper.js . 
-		.2 string.helper.js .	
-		.2 view.helper.js .		
 		.1 views .
 		.2 index.jade\DTcomment{server index file showing api docs}.	
 		.1 app.js\DTcomment{main server file}.
@@ -868,34 +952,36 @@ The \verb|controllers| folder consists of two authorization controllers. The \ve
 \newpage
 \section{Mobile Application}
 
-\subsubsection{Redux}
-Redux is a predictable state container for Javascript application. It is a small library which helps control and structure application's state hierarchy. The main concern in javascript application is taking care of the state of application. 
+\subsection{Redux}
+\label{redux-section}
+Redux is a predictable state container for Javascript applications. It is a small library which helps control and structure application's state hierarchy. Redux was inspired by Flux, which is an architecture Facebook uses for  their client side applications. It is not within the scope of this thesis to explore Flux but if interested please refer to \cite{fb-flux}. 
 
-Redux was inspired by Flux, which is a way Facebook creates their applications. But Redux was made smaller and easier to use.  %SOURCE 
-Redux's biggest advantage it's the way it handles the data flow. Redux has unidirectional data flow, which provides the developer with a clear and easy way to develop and debug the application.
+Redux's biggest advantage is the way it handles the data. It has a unidirectional data flow, which provides the developer with a clear and easy way to develop and debug applications.
 
-The structure of the application using redux is shown on \ref{fig:redux}. Each part of the scheme plays a vital role.
+The structure of the application using redux is showed on figure \ref{fig:redux}. The following is the description of each actor of Redux flow.
+
 \begin{itemize}
 \item{Presentational and Container Components}
 
-Presentational components are components which do not hold any logic inside themselves. Everything they need for functioning they receive passed in their props from the Container Components. In the case presentational component needs to fire an event it uses callbacks which are passed to it in props. There is no logic in Presentational Components.
+Presentational components are components which do not hold any logic. Everything they need for functioning they receive passed in their props from the Container Components. In the case presentational component needs to dispatch an action or perform any other logic it uses callbacks that are passed to it in its properties during initialization.
 
-
-Container Components are the ones who dispatch events when presentational components receive user interaction. They also take care of navigation. Sometimes they referred to as smart components and presentational components as dumb components.
+Container Components are the ones that dispatch events when presentational components receive user interaction. They also take care of navigation and other application logic. Sometimes they are referred to as smart components and presentational components as dumb components.
 
 \item{Action makers}
 
-Action makers are the ones who return actual action objects for the actions dispatched in Container Components.
+Action makers return action objects for the actions dispatched in Container Components.
 
 \item{Store}
 
-Store holds the application state. The application state changes with different actions and throughout the whole run of the application it is held by the store. Application state can be defined as a set of objects, collections of objects, cached data from the server, there could be booleans, integer or string values which are requested by the application. For instance the state can hold an authentication cookies value if the user was successfully logged in the system.
+Store holds the application state. The application state changes with different actions and throughout the whole run of the application it is held by the store. Application state can be defined as a set of objects, collections of objects, cached data from the server, there could be booleans, integer or string values which are requested by the application. For instance the state can hold an authentication token value if the user was successfully logged in the system.
 
 \item{Reducers}
 
-Reducers are pure functions. Pure functions are functions which do not modify their arguments. Reducers accept the current state of the application and an action which was dispatched as arguments. They return a new state of the application, by returning a completely new object. It can be the clone of the current state but can never be a modified current state. Reducers are basically state machines which tell which state follows after the state you are in if you dispatch the given action.
+Reducers are pure functions. Pure functions are functions which do not modify their arguments. Reducers accept the current state of the application and an action which was dispatched as arguments. They return a new state of the application, by returning a completely new object. It can be the clone of the current state but it can never be a modified current state. Reducers are basically state machines which tell which state follows after the state you are in if you dispatch the given action.
 
 \end{itemize}
+
+If you need to perform some preprocessing of data before it reaches the reducer you can use middleware, which will be registered in the store. The middleware part could be placed in between action dispatched and reducer decision about changing the state.
 
 \begin{figure}[!ht]
 	\includegraphics[width=1\textwidth]{assets/redux.png}}
@@ -903,16 +989,197 @@ Reducers are pure functions. Pure functions are functions which do not modify th
 	\label{fig:redux}
 \end{figure}
 
-\subsection{Structure}
-\subsection{Augmented Reality}
-As I have previously stated in chapter Analysis and design section \nameref{section:ar} I chose Wikitude SDK for implementation of Augmented Reality in my application. 
+\subsection{Redux-saga middleware}
 
-Wikitude SDK has a plugin for IOS development with Javascript API which I decided to use. There is no direct support for React Native, but the plugin provides a developer with Wikitude framework and there is a set of instructions how to integrate AR in the native iOS application on their website (for reference see official setup guide \url{http://www.wikitude.com/developer/documentation/ios}. 
+The above mentioned Redux flow does not specify where 3d party API calls can be taken care of. It doesn't make much sense to place API calls in container components because then the action dispatching structure will not be utilised. Redux has different middlewares written to take care of that. I chose \verb|redux-sagas| middleware.
+
+Redux-saga is a middleware for taking care of asynchronous actions such as calling 3d party API. Sagas are invoked once at the start of the application and run in the background. Each saga is registered in the store for watching or waiting for a certain action. Once the action is fired saga notices it and performs further logic based on the action. Sagas are created using generator functions. For more information about generator functions please refer to \cite{redux-sagas} chapter External Resources. The generator nature of redux sagas allows writing code in a simple synchronous way. That is a big advantage especially when it comes to API calls and is also easier then creating Promises or using callbacks. Using redux-saga allows to have application logic in two places - reducers which decide on state changes and sagas which take care of data retrieval. \cite{redux-sagas}
+
+The redux-saga midlleware and any other middleware goes in between action creator and the store from the figure  \ref{fig:redux}. Sagas basically catch the action before it reaches the reducers, make some changes and dispatch another action which if not used by any other sagas reaches the reducer.
+
+\subsection{Redux flow example}
+Here, I would like to give a simple demonstration of one Redux round for posting a message. The examples are purely for demonstration of the Redux principle. They are inspired by the mobile application implementation but simplified in order not to confuse with extra details. I will describe each snippet and then will summarised the whole process in the end. The following setup is for the application which would serve only one purpose to create messages.
+
+The following is a store registration. \verb|Redux| is imported on line 1, followed by \verb|redux-saga| middleware import. Root reducer is the state changer logic, its example is below.  On line 4 we import a watcher from sagas files. Lines 8 to 16 initialise the store.
+\begin{lstlisting}[language=JavaScript]
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import rootReducer from '../reducers/index.reducer'
+import { watchMessagePost } from '../sagas/sagas'
+
+const sagaMiddleware = createSagaMiddleware(watchMessagePost);
+
+export default function configureStore(initialState) {
+    return createStore(
+        rootReducer,
+        initialState,
+        applyMiddleware(
+            sagaMiddleware
+        )
+    )
+}
+\end{lstlisting}
+
+\verb|Index.js| - the entry point of the application. We create the store that was registered in the snippet above here on line 6. The \verb|Provider| import on line 2 enables our application to have access to the store from anywhere. This is very important, since the store holds the application state. You can see that on line 10 the store is passed as the property to the Provider which wraps our CreateContainer.
+
+\begin{lstlisting}[language=JavaScript]
+import React, {AppRegistry,Component} from 'react-native';
+import { Provider } from 'react-redux'
+import configureStore from './app/store/configureStore'
+import CreateContainer from './app/containers/create.container'
+
+const store = configureStore();
+class AirMsg extends Component {
+    render() {
+        return (
+            <Provider store={store}>
+                <CreateContainer />
+            </Provider>
+        );
+    }
+}
+
+AppRegistry.registerComponent('AirMsg', () => AirMsg);
+\end{lstlisting}
+
+\verb|messages.actions.js| - defines actions and action creators. Each action creator returns a new object. The advised structure of the returned object is as on the following example. It must contain properties type and payload. Each action has its own action creator. 
+
+\begin{lstlisting}[language=JavaScript]
+/** Actions */
+export const MESSAGE_POST = 'MESSAGE POST';
+export const MESSAGE_POST_SUCCESS = 'MESSAGE POST SUCCESS';
+export const MESSAGE_POST_FAILURE = 'MESSAGE POST FAILURE';
+
+/** Action creators */
+export function postMessage(data) {
+    return {
+        type: MESSAGE_POST,
+        payload: {
+            message: data        
+        }
+    };
+}
+
+export function postMessageSuccess(data) {
+    return {
+        type: MESSAGE_POST_SUCCESS,
+        payload: {
+            new_message: data
+        }
+    };
+}
+
+export function postMessageFailure(error, action) {
+    return {
+        type: MESSAGE_POST_FAILURE,
+        payload: {
+            error: error
+        }
+    };
+}
+
+\end{lstlisting}
+
+\verb|index.reducer.js| can be implemented as a simple switch. It receives state and action in its parameters. The default part of the switch should always return the current state. The initial state is an empty array. Reducer is a place where you could insert some logic which would process action data. 
+\begin{lstlisting}[language=JavaScript]
+import {
+    MESSAGE_POST_SUCCESS,
+    MESSAGE_POST_FAILURE
+} from "../actions/messages.actions";
+
+const index = (state = [], action) => {
+    switch (action.type) {
+        case MESSAGE_POST_SUCCESS:
+            // place for some processing logic
+            return { 
+            	new_message: action.payload
+				};
+        case MESSAGE_POST_FAILURE:
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
+export default index;
+\end{lstlisting}
+
+Part of \verb|sagas.js|. The watcher on line 19 to 21 listens to MESSAGE\_POST action. It will react on every action of this type fired. Once the action is fired the watcher will call postMessage function on line 9. The function will perform the api call on line 11. Thank to the generator nature of sagas we can write code synchronously. Then line 12 dispatches a success action in the case no errors were thrown during the api call. Otherwise the errors are caught and the failure action is dispatched on line 14.
+
+\begin{lstlisting}[language=JavaScript]
+import {takeEvery} from "redux-saga";
+import {put, call} from "redux-saga/effects";
+import {MESSAGE_POST} from "../actions/messages.actions";
+
+var api = require('../api');
+var messageActions = require('../actions/messages.actions');
+
+/** workers */
+function* postMessage(data) {
+    try {
+        const resp = yield call(api.post, data.payload);
+        yield put(messageActions.postMessageSuccess(resp));
+    } catch (error) {
+        yield put(messageActions.postMessageFailure(error));
+    }
+}
+
+/** watchers */
+export function* watchMessagePost() {
+    yield* takeEvery(MESSAGE_POST, postMessage);
+}
+\end{lstlisting}
+
+\verb|create.container.js| is a container which renders a \verb|createComponent| on line 10. It is connected to the store and has full access to the state. The function which maps the state to container properties is on line 19. Another function mapping functions that dispatch actions to the store is on line 23. And finally on line 29 both of these functions are connected with our container. On line 25 I map postMessage action from \verb|messages.actions.js| to the container properties. Once I call that function POST\_MESSAGE action will be dispatched to the store. On line 13 this function is passed as a property to the Component, keeping the logic on the side of containers and providing component with a callback to react on user interaction.
+
+\begin{lstlisting}[language=JavaScript]
+var React = require('react-native');
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import * as messageActions from "../actions/messages.actions";
+
+var CreateComponent = require('../createComponent');
+
+class CreateMsgContainer extends React.Component {
+
+    render() {
+        return ( 
+        		<CreateComponent 
+        			postMessage={(m) => this.props.postM(m)} 
+						/>
+				);
+    }
+}
+
+const mapStateToProps = (store) => {
+    return {
+			message: store.new_message    
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        postM: bindActionCreators(messageActions.postMessage, dispatch)
+    };
+};
+
+CreateMsgContainer = connect(mapStateToProps, mapDispatchToProps)(CreateMsgContainer);
+module.exports = CreateMsgContainer;
+\end{lstlisting}
+
+There is no example of component since it is just a simple form with a button, the button would have onclick event set to the function passed to it in properties.
+
+Now I would like to sum up all of the above snippets in order to form a whole picture. The application starts and \verb|index.js| is called. It initializes the store with initial state null and creates the application, passes the store to the application through properties and renders the \verb|create.container.js|. Container render function renders \ver|createComponent| which has a form for user interaction. User submits a message. The \verb|onClick| event fires (it was passed from the container through properties). The event fires POST\_MESSAGE action. The saga watcher is waiting for that action. It grabs the action and passes it to its worker. The worker calls api to save the message. If everything goes ok and the returned response status is 200 the POST\_MESSAGE\_SUCCESS action is fired. The reducer receives the action and changes the state according to implementation. By changing the state the reducer forces re-render of container and component. Container has state store.new\_message mapped to its properties. Now once the whole cycle is finished the container can do something with the received data. 
+
+\subsection{Augmented Reality}
+As I have previously stated in chapter Analysis and design section \nameref{section:ar} I chose Wikitude SDK for implementation of Augmented Reality in the mobile application. 
+
+Wikitude SDK has a plugin for IOS development with Javascript API which I decided to use. There is no direct support for React Native, but the plugin provides a developer with Wikitude framework and there is a set of instructions how to integrate AR in the native iOS application on their website (for reference see official setup guide \cite{wikitude}). 
 
 \subsubsection{Connecting React Native and Objective C}
 React Native is a set of javascript functions wrapped around native code. Therefore you can make your application communicate with the native code using Native Modules or Native UI Components. This is particularly useful when you want to implement part of you application's functionality natively.  
 
-There are two macros which are used for this case:
+There are two macros which one can use:  \verb|RCT_METHOD_EXPORT(*method*)| and \verb|RCT_MODULE_EXPORT()|. Further is described the one that I used.
 
 \begin{itemize}
 \item  \verb|RCT_MODULE_EXPORT()| 
@@ -949,7 +1216,7 @@ RCT_EXPORT_MODULE()
 
 \begin{lstlisting}[language=javascript]
 // Component.js
-import React, { requireNativeComponent } from 'react-native';
+import {React, requireNativeComponent} from 'react-native';
 
 var Example = requireNativeComponent('Example', Component);
 
@@ -962,35 +1229,68 @@ class Component extends React.Component {
 module.exports = Component;
 \end{lstlisting}
   
-  \verb|ExampleManager.h| is a header file and it solely defines interface and possible attributes or parameters for the main class. For our purposes it extends RCTViewManager who takes care of views in React Native, hence the suffix RCT.
+  \verb|ExampleManager.h| is a header file and it solely defines the interface and possible attributes or parameters for the main class. For our purposes it extends RCTViewManager who takes care of views in React Native, hence the suffix RCT.
   
   \verb|ExampleManager.m| implements \verb|view| function which returns \verb|UIView*| on line 11. This function is called by default on any class representing a view in Objective C, when it is mounted in the view hierarchy.
   
-  \verb|Component.js| is the actual component we use in our React Native application. In order to use Native UI Component which we defined in  \verb|ExampleManager.h| and \verb|ExampleManager.m| we add an import as stated on line 2 and require native component on line 4. After that the native view is ready to use as a simple react component as you can see on line 8.
+  \verb|Component.js| is the actual component we use in our React Native application. In order to use Native UI Component which we defined in  \verb|ExampleManager.h| and \verb|ExampleManager.m| we add an import on line 2 and require native component on line 4. After that the native view is ready to use as a simple react component as you can see on line 8.
   
-\item  \verb|RCT_METHOD_EXPORT(*method*)|
 
 \end{itemize}
 
 \subsubsection{Integration of Wikitude and RN}
-To start using Wikitude SDK we first need to add it to our XCode project and create a ViewController as described in the official setup guide at \url{http://www.wikitude.com/developer/documentation/ios}. There is also a sample project available at \url{https://github.com/Wikitude/wikitude-sdk-basic-projects} which shows an example of ViewController implementation. For my purposes I had to modify the sample implementation. The complete implementation for integration of Wikitude and React Native is found in Appendix: \nameref{apendix:integration}
+To start using Wikitude SDK you first need to add it to our XCode project and create a ViewController as described in the official setup guide at \cite{wikitude}. There is also a sample project available at \cite{wiki-project} that shows an example of ViewController implementation. For my purposes I had to modify the sample implementation. The complete implementation for integration of Wikitude and React Native is found in Appendix: \nameref{apendix:integration}. 
+
+However this implementation works while testing in simulator and with cable attached, it crashes the application once tested on device not connected with the cable. After thorough research I found out that React Native core mounts each view twice for styling reasons \cite{RNcode}.
+This creates a memory leak because the ArchitectWorld object in the application is allocated twice, which is an unwanted behaviour for the Wikitude. The simulator only throws warning and is not affected by the memory leak. On the contrary when the application is tested on device and the Augmented Reality is launched it crashes the application, shutting it down with no chance of continuing using it. I didn't come accross that issue sooner because my initial research didn't show any signs of incompatibility of React Native and Wikitude. Furthermore I didn't find any example of their integration so I simply thought due to the young age of React Native that it hasn't been tried out before.
+
+To conclude Wikitude is not entirely suitable for using with React Native at the moment. However I believe with growing popularity of React Native there will be a plugin released for it soon. Once the plugin is out I could change the Augmented Reality logic part of the application and replace it with the plugin.
 
 \subsection{Libraries used}
 
-All the libraries that were provided by the npm package manager.
+
+I have used npm package manager for taking care of the dependencies in the project. Among all the libraries I have used there are a few I would like to mention.
+
+\begin{itemize}
+	\item react-native-image-picker
+	\item react-native-autocomplete
+	\item react-native-maps
+\end{itemize}
 
 
 \section{Web Application}
-\subsection{Structure}
+
+Web application is implemented using React and Redux, which has been already described in detail in the previous section \nameref{redux-section}.
+
+\subsection{Routing}
+
+I used \verb|redux-router| \cite{react-router} for handling the routing in the web application. It is a routing library for the React which allows to create user friendly, pretty urls without hashes and use browser history. Since React is view only framework all the routes work only if you start navigating from the index route. Basically you have to have the application loaded and then you are able to move around changing routes. Because when your route is missing the hash, which is usually present in javascript application routes, the request is sent to the server. Once you refresh any of the pages which is not the index page the route will not be found since there is no such route on the server. Therefore for React routing to function properly there is a need for a server. There are several options of how to accomplish that. 
+
+Firstly there is server side rendering option. The server will be serving complete html pages with data and everything needed. In the case of high load and data heavy websites it is a very good choice since it brings high performance and is also SEO friendly. However Google seems to be enhancing their indexing and crawling mechanisms in order to be able to crawl through javascript pages \cite{google-blog}. 
+
+Secondly a simple server which will serve as a proxy can be created. This option seemed more suitable for me. The web application is pretty basic so the performance increase from moving to server rendering will not be that essential. For the meantime for the purposes of my web application server with a proxy is enough.
+
+I implemented a simple express server which on all incoming requests redirest to index.html allowing the application to load and serve the user requested route. The example of the express server can be found in Appendix \ref{apx:react-server}
+
 
 \subsection{Libraries used}
 
-\section{Testing}
 
-\subsection{Data testing}
+\begin{itemize}
+	
+	\item react-bootstrap
+	\item react-masonry-component
+	\item react-d3
+	
+\end{itemize}
+\section{Testing}
 
 
 \subsection{Unit testing}
+\subsection{Component}
+\subsection{Integration}
+
+
 
 \setsecnumdepth{part}
 \chapter{Conclusion}
@@ -1008,6 +1308,103 @@ All the libraries that were provided by the npm package manager.
 	\item[GUI] Graphical user interface
 	\item[XML] Extensible markup language
 \end{description}
+
+\chapter{Installation guide}
+
+\section{Server}
+\section{Mobile application}
+\section{Web application}
+
+\chapter{Web application screens}
+
+\chapter{Mobile application sreens}
+
+\chapter{Supervisor configuration}
+\label{apx:supervisor}
+
+Default directory for the supervisor is where the configuration file is. Most of the configuration is default, the only changed lines are 20 to 39, the program configuration.
+\begin{lstlisting}[language=C]
+[unix_http_server]
+file=/tmp/supervisor.sock   ; (the path to the socket file)
+
+[supervisord]
+logfile=/supervisor/supervisord.log ; (main log file)
+logfile_maxbytes=50MB        ; (max logfile bytes b4 rotation;)
+logfile_backups=10           ; (main logfile rotation backups)
+loglevel=info                ; (log level;default info;)
+pidfile=/tmp/supervisord.pid ; (supervisord pidfile)
+nodaemon=false               ; (start in foreground if true)
+minfds=1024                  ; (min.  startup file descriptors)
+minprocs=200                 ; (min.  process descriptors)
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
+
+[program:airServer]
+command=npm start
+autostart=true 
+stdout_logfile=/logs/supervisor/server_out.log
+stderr_logfile=/logs/supervisor/server_err.log  
+
+[program:geoConsumer]
+directory=/kue
+command=node geoConsumer.js
+autostart=true 
+stdout_logfile=/logs/supervisor/geoConsumer_out.log
+stderr_logfile=/logs/supervisor/geoConsumer_err.log  
+
+[program:validConsumer]
+directory=/kue
+command=node validConsumer.js
+autostart=true 
+stdout_logfile=/logs/supervisor/validConsumer_out.log
+stderr_logfile=/logs/supervisor/validConsumer_err.log  
+
+\end{lstlisting}
+
+\chapter{Express server for React routing}
+\label{apx:react-server}
+
+\begin{lstlisting}[language=JavaScript]
+// required for converting JSX syntax
+require("node-jsx").install();
+require("babel-core/register")({"presets": ["es2015"]});
+var express = require('express');
+var path = require('path');
+var app = express();
+
+// serving static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+});
+
+// development error handler - will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+// production error handler - no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
+
+module.exports = app;
+\end{lstlisting}
 
 \chapter{Integration of Wikitude and React Native}
 \label{apendix:integration}
