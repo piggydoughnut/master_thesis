@@ -71,11 +71,11 @@
 \authorWithDegrees{Mikhailova Daria \& Bc.} %author's name with academic degrees
 \supervisor{Ing. Jan Vaclavik}
 \acknowledgements{I would like to thank my supervisor Ing. Jan Vaclavik for his assistance and advice while leading this project and for giving me a chance to learn new technologies and bring one of my ideas to life.}
-\abstractEN{The goal of this thesis is to explore a new way of creating mobile applications using Javascript technologies and implement a complete system using Javascript. The system will comprise of mobile application which brings a new way of communicating by leaving messages at GPS locations, web application and a REST API server.}
+\abstractEN{The goal of this thesis is to explore a new way of creating mobile applications using Javascript technologies and implement a complete system for messaging. The system will comprise of mobile application in React Native which brings a new way of communicating by leaving messages at GPS locations, web application in React and a REST API server in node.js.}
 \abstractCS{V n{\v e}kolika v{\v e}t{\' a}ch shr{\v n}te obsah a p{\v r}{\' i}nos t{\' e}to pr{\' a}ce v {\v c}esk{\' e}m jazyce.}
 \placeForDeclarationOfAuthenticity{Prague}
 \keywordsCS{Replace with comma-separated list of keywords in Czech.}
-\keywordsEN{Replace with comma-separated list of keywords in English.}
+\keywordsEN{GPS messaging, React Native, React, Node.js, Redux, Augmented Reality, Wikitude.}
 \declarationOfAuthenticityOption{1} %select as appropriate, according to the desired license (integer 1-6)
 
 
@@ -92,7 +92,7 @@ The rapid usage growth of messaging apps over the past several years can only be
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.7\textwidth]{assets/messaging_apps.png}}
+	\includegraphics[width=0.9\textwidth]{assets/messaging_apps.png}}
 	\caption{Messaging apps have surpassed social networks \\ Source: \cite{BI-apps}	}
 	\label{fig:apps}
 \end{figure}
@@ -114,7 +114,7 @@ Messaging application will offer two types of messages. Firstly users will post 
 
 Web application is a complimentary portal which allows to browse through a common 3d gallery and choose objects for messages, upload your own 3d objects and view messaging statistics.
 
-The server will be providing data for both applications and will also server as an authorization authority.
+The server will be providing data for both applications and will also serve as an authorization authority.
 
 \section{System functional requirements}
 
@@ -164,19 +164,11 @@ The user will be able to update his profile using mobile application. He will be
 
 \item{Performance} 
 
-There must be short response time for server requests.
-
-\item{Resources} 
-
-The application should not consume too much battery power in both active and idle modes.
+There must be short response time for server requests. The system must be ready to deal with high request load.
 
 \item{Recoverability}
 
 Should be able to recover fast in case of server crash or any other failures.
-
-\item{Data Integrity}
-
-The messaging and other data has to be consistent in any situation.
 
 \item{Documentation}
 
@@ -193,9 +185,9 @@ The application needs to be able to cope with a growing amount of requests.
 
 \section{System use cases}
 
-\subsection{User registers}
+\subsection{User registeration}
 \begin{enumerate}
-	\item The user opens the application and taps button \textit{Become a member} on the main screen.
+	\item The user opens the application and taps the button \textit{Become a member} on the main screen.
 	\item The user fills in his username, email and password.
 	\item In the case no validation errors occur the user is redirected to the map.
 \end{enumerate}
@@ -235,10 +227,10 @@ The application needs to be able to cope with a growing amount of requests.
 	\item There are instructions on uploading the image, which size and which formats are accepted.
 	\item The user uploads the 3D object, which is added to his object collection.
 	\item The user clicks on object collection in his profile and sees that his new object has been added.
-	\item The user open mobile application and performs Use case 1, but chooses to create a \textit{3d message} instead of \textit{text message} Under the message text box there is an option to view user's 3d gallery.
+	\item The user opens the mobile application and performs Use case 1, but chooses to create a \textit{3d message} instead of \textit{text message} Under the message text box there is an option to view user's 3d gallery.
 	\item 3d gallery offers an option of viewing the object in AR before adding it to the message.
 	\item The user chooses a 3d object by viewing its thumbnail and the object is attached to the message
-	\item Once the message is saved the user is redirect to the map and can see that a new message has been added to his current location
+	\item Once the message is saved the user is redirected to the map and can see that a new message has been added to his current location
 \end{enumerate}
 
 \subsection{User checks on updates for his mesages}
@@ -246,7 +238,7 @@ The application needs to be able to cope with a growing amount of requests.
 	\item The user opens the application and views the map, where his current location is marked.
 	\item The user opens the menu and chooses My messages.
 	\item The user sees a list of his messages with numbers of total views. In the case there has been a new comment on the message the user will see a new comment icon next to his message with a number of new comments.
-	\item The user can see that now next to the marker with his current location appears an icon symbolising his message.
+	\item The user can tap on the message and open the message detail. The user can read new comments and comment himself.
 \end{enumerate}
 
 \subsection{Profile change}
@@ -423,7 +415,7 @@ The goal of the thesis is to create a messaging system which will comprise of a 
 	\end{figure}
 
 \section{Database}
-One of the most important parts of any application is the database design. It is essential to understand how your data will be handled, saved and organised before starting to build an application. As was already mentioned in the previous chapter I chose MongoDB for this implementation. MongoDB does not define a scheme design principles or design notation which I could use. Therefore I used a simple notation where each square element represents a single document in the collection as the figure \ref{fig:model} shows. The arrows are the references, the way where the arrow is pointing the reference is provided.
+One of the most important parts of any application is the database design. It is essential to understand how your data will be handled, saved and organised before starting to build an application. As was already mentioned in the previous chapter I chose MongoDB for this implementation. MongoDB does not define a scheme design principles or design notation which I could use. Therefore I used a simple notation where each square element represents a single collection as the figure \ref{fig:model} shows. The arrows are the references, the way where the arrow is pointing the reference is provided.
 
 MongoDb has a different view on data than relational databases. Relational databases are focused on what answers we have when document based databases are more focused on what questions we have. Therefore minor duplications are allowed, because they will save time preventing the database performing joins and looking up information in other tables.
 
@@ -432,7 +424,7 @@ In GPS pinned application the main concern is the messages. We need to know on o
 \item Message
 
 Message contains all the necessary data about the message. The message document contains message text, description, which is a 150 characted substring of text, its location with latitude and longitude and also city and country, which will be populated based on the Google Api response using coordinates. The message also contains object user with user's id and username. The case is that when previewing the message the only information we need to show the user is the username of the person who left the message. This minor duplication saves us time we would have spent looking through the user table in order to find correct user and get his username. MongoDb being a document database allows us saving the image as a base64 string right into the document. Maximum size of the MongoDB documents is 16 MB. We are dealing with mobile phone pictures which are on average between 2 and 5MB so we don't need to worry about space. %SOURCE! 
-Just for the information in case of bigger images it is also possible to save them in the collection. MongoDb has a tool which splits big documents in several smaller allowing any size to be safely saved in the collection. 
+Just for the information in case of bigger images it is also possible to save them in the collection. MongoDb has a tool which splits big documents in several smaller allowing any size to be safely saved in the collection.  %SOURCE
 
 	\begin{figure}[!ht]
 		\centering
@@ -445,7 +437,7 @@ Some messages will be 3d obj and in order to save time and server side operation
 
 \item User
 
-User document contains standardised user data, authentication fields and a profile picture. User document also has a country string saved in it. The country list is saved in a json file and is provided to the user as a dropdown select in mobile application.
+User document contains standardised user data, authentication fields and a profile picture. User document also has a country string saved in it. The country list is saved in a json file and is provided to the user as a dropdown select in the mobile application.
 
 \item GalleryFile
 
@@ -479,26 +471,23 @@ After conducting a thorough research concerning various Augmented reality implem
 \begin{itemize}
 	\item{Open source Augmented Reality SDK}
 	
-	There are a few open source AR SDKs with IOS support, implemented in Objective C. The one which seemed to be the most relevant can be found at  \url{https://github.com/promet/PRAugmentedReality}. This is neat small framework which supports even the older iPhones. It supports a type of AR called POI or Points Of Interest. It is well documented and has a video tutorial on how to get started with the framework. There are also well commented code and a sample application.
+	There are a few open source AR SDKs with IOS support, implemented in Objective C. The one which seemed to be the most relevant can be found at  \cite{ar-github}. This is a neat small framework which supports even the older iPhones. It supports a type of AR called POI or Points Of Interest. It is well documented and has a video tutorial on how to get started with the framework. There are also well commented code and a sample application.
 	
 	Advantages:
 	\begin{itemize}
-		\item{Support for Points of Interest} therefore Geo location support
+		\item{Support for Points of Interest} therefore Geo location support.
 	\end{itemize}
 	
 	Disadvantages:
 	\begin{itemize}
-		\item{No support for 3D object. The developer would have to implement 3D object rendering himself}
-		\item{Implemented in Objective C, which is not the most developer friendly language}
+		\item{No support for 3D object. The developer would have to implement 3D object rendering himself.}
+		\item{Implemented in Objective C, which is not the most developer friendly language.}
 		\item{The last update of the framework was performed 2 years ago. The framework is not supported anymore. There is no community and in case of problems or bugs the developer has to deal with everything himself. There is an option of communicating with the author, but he didn't respond to my email inquiring about the possible support of 3D images, so I would not rely on that.}
 	\end{itemize}
 
-	Conclusion:
-	This option does not seem to be suitable as it is requires a deep understanding of Objective C in order to implement rendering and fix possible problems which might arise during development. The focus of this thesis is to explore new way of creating apps such as using javascript wrappers for objective C to create pure native experience.
-
 	\item{Unity 3D - Kudan AR plugin}
 	
-	Kudan is an Augmented Reality SDK.  Kudan supports iOS, Android and Unity cross platform game engine. It offers a much better Augmented Reality experince using its Advanced tracking for both marker and markerless augmented realities. For more information about Kudan please see official website at \cite{kudan}
+	Kudan is an Augmented Reality SDK.  Kudan supports iOS, Android and Unity cross platform game engine. It claims to offer a much better Augmented Reality experince using its Advanced tracking for both marker and markerless augmented realities then the existing frameworks. For more information about Kudan please see official website at \cite{kudan}.
 	
 	Advantages:
 	\begin{itemize}
@@ -516,7 +505,7 @@ After conducting a thorough research concerning various Augmented reality implem
 	Advantages:
 	\begin{itemize}
 		\item{Javascript API} - Wikitude provides a clean API with good documentation. It is a huge advantage since the main technologies I am using in my thesis are all javascript based.
-		\item{Big community and support} - The Wikitude AR has a big community and a forum with a lot of different issue to browse through. It has been already developed for several year, which means loads of useful features were implemented and bugs eliminated.
+		\item{Big community and support} - The Wikitude AR has a big community and a forum with a lot of different issues to browse through. It has been already developed for several year, which means loads of useful features were implemented and bugs eliminated.
 		\item{iOS integration} - My application starting point is objective C project and I was looking for a solution which would be easily integrated in Native - React Native flow. The documentation provides with a good example of how to work with the Wikitude.
 		\			
 	\end{itemize}
@@ -526,6 +515,10 @@ After conducting a thorough research concerning various Augmented reality implem
 		\item{Trial version} - the only available version to use is a free version, however with full support of all SDK's features, is trial. There is a watermark on the camera screen when using AR.
 	\end{itemize}		
 \end{itemize}
+
+The first option did not seem to be suitable as it would require deep understanding of Objective C in order to implement rendering and fix possible problems which might arise during development. The focus of this thesis is to explore new ways of creating applications such as using javascript wrappers for objective C to create pure native experience. Moreover this thesis is taking advantage of different other javascript techniques and I would mainly want to focus on possibilities offered by javascript frameworks.
+
+The second option Augmented Reality wise is a good choise, but it doesn't support location awareness and brings a lot of difficulties when trying to serve it with new resources.
 
 After careful consideration I decided to choose the Wikitude AR SDK with trial version. It seems to be the best solution, not minding the trial flags on the camera. It provides an easy way of integrating the framework in my application. Javascript API is also a very big advantage.
 
@@ -884,7 +877,7 @@ directory=/server/directory
 command=npm start
 autostart=true 
 stdout_logfile=/logs/server_out.log
-stderr_logfile=/logs/supervisor/server_err.log  
+stderr_logfile=/logs/server_err.log  
 \end{lstlisting} \\
 Queue consumers were also added to the supervisor configuration. 
 
@@ -900,7 +893,7 @@ I have used the npm package manager for taking care of the dependencies in the p
 	It is a middleware used for authenticating requests. It uses so called strategies to define different authenticating techniques. There is around 300 strategies including authenticating through social networks and enterprise generation and more. \cite{pass}
 	\item {Async}
 	
-	Async is a powerful library providing function for working with asynchronous Javascript. Working with asynchronous functionality get tedious sometimes and this library helps to make it easy. You only need to provide you asynchronous function with a callback which will symbolise its completion.\cite{sync}
+	Async is a powerful library providing functionality for working with asynchronous Javascript. Working with asynchronous functionality get tedious sometimes and this library helps to make it easy. You only need to provide your asynchronous function with a callback which will symbolise its completion.\cite{sync}
 	
 	\item {Babel}
 	
@@ -908,7 +901,7 @@ I have used the npm package manager for taking care of the dependencies in the p
 	
 	\item{Mongoose unique validator}
 	
-	This small library is extremely helpful. It is connected to as a middleware to a model in which unique indexes are defined. Mongoose unique validator does a great job in returning readable and user friendly validation messages. MongoDb unfortunately fails drastically in this. Its validation messages have to go through some serious parsing and analysing before being used. \cite{mvalid}
+	This small library is extremely helpful. It is connected as a middleware to a model in which unique indexes are defined. Mongoose unique validator does a great job in returning readable and user friendly validation messages. MongoDb unfortunately fails drastically in this. Its validation messages have to go through some serious parsing and analysing before being used. \cite{mvalid}
 \end{itemize}
 
 \subsection{Structure}
@@ -923,7 +916,7 @@ The \verb|models| folder consists of \verb|mongoose| models. \verb|Mongoose| is 
 
 The \verb|views| folder consists only of one view because our server serves strictly as a REST API server. The only template shows server's API documentation on the index page.
 
-The \verb|controllers| folder consists of two authorization controllers. The \verb|auth.controller.js| defines authorization strategies of library \verb|passport| (for more info please fsee section Libraries user) such as \textit{BasicStrategy}, \textit{ClientPassword Strategy} and \textit{BearerStrategy}. The \verb|oauth2.controller.js| takes care of token generation, verification and issuing new token on refresh token.
+The \verb|controllers| folder consists of two authorization controllers. The \verb|auth.controller.js| defines authorization strategies of library \verb|passport| such as \textit{BasicStrategy}, \textit{ClientPassword Strategy} and \textit{BearerStrategy}. The \verb|oauth2.controller.js| takes care of token generation, verification and issuing new token on refresh token.
 
 \begin{figure}
 	\dirtree{%
@@ -952,6 +945,62 @@ The \verb|controllers| folder consists of two authorization controllers. The \ve
 \newpage
 \section{Mobile Application}
 
+\subsection{Platform}
+
+The chosen platform for mobile application implementation is \verb|IOS|. Facebook released IOS support earlier than for \verb|Android|. There is more native components wrapped for \verb|IOS| than for \verb|Android| at the moment, which makes it a more plausible choice.
+
+\subsection{Functionality}
+
+Mobile application has the following functionality:
+
+\begin{itemize}
+
+	\item Registration
+	
+	On the main view there are options for log in and becoming a member. When the latter ia chosen the user is redirected to the registration view. He fills in his username, email and password. If no validation errors occur, such as the username or email are already in the database or the password is too short (has to be at least 8 symbols) the user is redirected to the map view.
+	
+	\item Login
+	
+	The user logs in on the main login view using his username and password. After successful login he is redirected to the map view. If login is unsuccessful the error message is showed.
+	
+	\item Map
+	
+	After the login the user is redirected to the map and the messages around him are loaded. The user can tap on different messages to see short descriptions. Each message description also contains a link to see the complete message. When the link is clicked and the user is too far from the message (more than 1-2 meters) an information modal appears informing the user that he is not able to view the message.
+	
+	\item Read a message
+	
+	Once the user is close enough to the message he clicks on the icon on the map, sees the description and clicks on the link to see the whole message. The message detail opens view shows up. In case there is an image it is showed on the top, followed by the message text, user who added the message and the date of creation. Further follows a number of comments, a comment box and a comments list. There are only 10 last comments showed. There is a link to load more comments, which when clicked loads another 10 comments and appends them to the existing list.
+	
+	\item Comment on a message
+	
+	On the message detail the user types in his comment in the comment box, presses post and immediately sees his comment added as the newest one.
+		
+	\item Side menu
+	
+	The user can access side menu by pulling the left side of the screen or tapping on the menu sign in the top left corner. The option in the menu are My Messages, Profile and Logout.
+	
+	\item Add a new message
+	
+	The user, while being on the map can add a new message by tapping Add message in the top right corner. When on the messaging creating view the user can choose between text message and object message. 
+	If the user chose a text message he can attach a picture to it by tapping on Add image. Next the user is offered a choice of camera or photo gallery. If choosing camera the user can take a picture and it will be attached to the message. Choosing photo gallery allows to choose an image from the photo gallery of their phone.
+	If the object message is chosen the user can choose an object from his gallery. The user taps a button Choose an object and his object gallery is showed to him. In the case his object gallery is empty the user is showed a warning message telling him to go to the website and add objects to his gallery.
+	
+	\item View my messages
+	
+	The user pulls the left side of the screen or taps on the menu sign in the top left corner to open the menu. There is My messages option, which when pressed redirects the user to the view with his messages. The user sees a list with his messages, next to a short description of each message is a number of views and in the case there are any new comments he will see a small comment icon with a number of new comments. The user can click on each message and view the detail. The user can comment on the message.
+	
+	\item Edit the profile
+
+	The user pulls the left side of the screen or taps on the menu sign in the top left corner to open the menu. There is a Profile option, which when pressed redirects the user to his profile. The user can edit the profile by changing his email, adding a country, changing password or uploading a picture.
+	
+	\item Logout
+	
+	The user pulls the left side of the screen or taps on the menu sign in the top left corner to open the menu. There is a logout option, which when pressed logs the user out and redirects him to the login view.
+
+\end{itemize}
+
+The screenshots of the application with description are available in the Appendix.
+
 \subsection{Redux}
 \label{redux-section}
 Redux is a predictable state container for Javascript applications. It is a small library which helps control and structure application's state hierarchy. Redux was inspired by Flux, which is an architecture Facebook uses for  their client side applications. It is not within the scope of this thesis to explore Flux but if interested please refer to \cite{fb-flux}. 
@@ -965,7 +1014,7 @@ The structure of the application using redux is showed on figure \ref{fig:redux}
 
 Presentational components are components which do not hold any logic. Everything they need for functioning they receive passed in their props from the Container Components. In the case presentational component needs to dispatch an action or perform any other logic it uses callbacks that are passed to it in its properties during initialization.
 
-Container Components are the ones that dispatch events when presentational components receive user interaction. They also take care of navigation and other application logic. Sometimes they are referred to as smart components and presentational components as dumb components.
+Container Components are the ones that dispatch actions when presentational components receive user interaction. They also take care of navigation and other application logic. Sometimes they are referred to as smart components and presentational components as dumb components.
 
 \item{Action makers}
 
@@ -1000,7 +1049,7 @@ The redux-saga midlleware and any other middleware goes in between action creato
 \subsection{Redux flow example}
 Here, I would like to give a simple demonstration of one Redux round for posting a message. The examples are purely for demonstration of the Redux principle. They are inspired by the mobile application implementation but simplified in order not to confuse with extra details. I will describe each snippet and then will summarised the whole process in the end. The following setup is for the application which would serve only one purpose to create messages.
 
-The following is a store registration. \verb|Redux| is imported on line 1, followed by \verb|redux-saga| middleware import. Root reducer is the state changer logic, its example is below.  On line 4 we import a watcher from sagas files. Lines 8 to 16 initialise the store.
+The following is a store registration. \verb|Redux| is imported on line 1, followed by \verb|redux-saga| middleware import. Root reducer is the state changer logic, its example is below.  On line 4 we import a watcher from sagas files and add it to the middleware on line 6. Lines 8 to 16 initialise the store.
 \begin{lstlisting}[language=JavaScript]
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
@@ -1130,7 +1179,7 @@ export function* watchMessagePost() {
 }
 \end{lstlisting}
 
-\verb|create.container.js| is a container which renders a \verb|createComponent| on line 10. It is connected to the store and has full access to the state. The function which maps the state to container properties is on line 19. Another function mapping functions that dispatch actions to the store is on line 23. And finally on line 29 both of these functions are connected with our container. On line 25 I map postMessage action from \verb|messages.actions.js| to the container properties. Once I call that function POST\_MESSAGE action will be dispatched to the store. On line 13 this function is passed as a property to the Component, keeping the logic on the side of containers and providing component with a callback to react on user interaction.
+\verb|create.container.js| is a container which renders a \verb|createComponent| on line 10. It is connected to the store and has full access to the state. The function which maps the state to container properties is on line 19. Another function mapping functions that dispatch actions to the store is on line 25. And finally on line 31 both of these functions are connected with our container. On line 27 I map postMessage action from \verb|messages.actions.js| to the container properties. On the line 21 i make part of the state available to my container to access through its properties. Once I call function from line 27 the POST\_MESSAGE action will be dispatched to the store. On line 13 this function is passed as a property to the Component, keeping the logic on the side of containers and providing component with a callback to react on user interaction.
 
 \begin{lstlisting}[language=JavaScript]
 var React = require('react-native');
@@ -1169,7 +1218,7 @@ module.exports = CreateMsgContainer;
 
 There is no example of component since it is just a simple form with a button, the button would have onclick event set to the function passed to it in properties.
 
-Now I would like to sum up all of the above snippets in order to form a whole picture. The application starts and \verb|index.js| is called. It initializes the store with initial state null and creates the application, passes the store to the application through properties and renders the \verb|create.container.js|. Container render function renders \ver|createComponent| which has a form for user interaction. User submits a message. The \verb|onClick| event fires (it was passed from the container through properties). The event fires POST\_MESSAGE action. The saga watcher is waiting for that action. It grabs the action and passes it to its worker. The worker calls api to save the message. If everything goes ok and the returned response status is 200 the POST\_MESSAGE\_SUCCESS action is fired. The reducer receives the action and changes the state according to implementation. By changing the state the reducer forces re-render of container and component. Container has state store.new\_message mapped to its properties. Now once the whole cycle is finished the container can do something with the received data. 
+Now I would like to sum up all of the above snippets in order to form a whole picture. The application starts and \verb|index.js| is called. It initializes the store with initial state null and creates the application, passes the store to the application through properties and renders the \verb|create.container.js|. Container render function renders \verb|createComponent| which has a form for user interaction. User submits a message. The \verb|onClick| event fires (it was passed from the container through properties). The event fires POST\_MESSAGE action. The saga watcher is waiting for that action. It grabs the action and passes it to its worker. The worker calls api to save the message. If everything goes ok and the returned response status is 200 the POST\_MESSAGE\_SUCCESS action is fired. The reducer receives the action and changes the state according to implementation. By changing the state the reducer forces re-render of container and component. Container has state store.new\_message mapped to its properties. Now once the whole cycle is finished the container can do something with the received data. 
 
 \subsection{Augmented Reality}
 As I have previously stated in chapter Analysis and design section \nameref{section:ar} I chose Wikitude SDK for implementation of Augmented Reality in the mobile application. 
@@ -1183,7 +1232,7 @@ There are two macros which one can use:  \verb|RCT_METHOD_EXPORT(*method*)| and 
 
 \begin{itemize}
 \item  \verb|RCT_MODULE_EXPORT()| 
-This macro says that the given class is exported to React Native and can be referenced by its name. It is considered to be good programming style to separate your files into header (\verb|.h| extension) and implementation files (\verb|.m| extension). For an example of exporting a module see the following classes: \verb|ExampleManager.h|, \verb|ExampleManager.m| and \verb|Component.js|.
+This macro says that the given class is exported to React Native and can be referenced by its name. It is considered to be good programming style to separate your files into header (\verb|.h| extension) and implementation files (\verb|.m| extension). For an example of exporting a module see the following classes below: \verb|ExampleManager.h|, \verb|ExampleManager.m| and \verb|Component.js|.
 
 
 \begin{lstlisting}[language=C]
@@ -1237,6 +1286,10 @@ module.exports = Component;
   
 
 \end{itemize}
+\subsubsection{Object format}
+
+The supported format for 3d files by Wikitude is \textit{wt3}, which is their own 3d format. For now there is no support for programatic conversion which I could have implemented in my web application. This bring a certain overhead. However wikitude provides their own converter which converts \textit{fbx} file to \textit{wt3}. It is free and available at wikitude website \cite{wikitude}. 
+
 
 \subsubsection{Integration of Wikitude and RN}
 To start using Wikitude SDK you first need to add it to our XCode project and create a ViewController as described in the official setup guide at \cite{wikitude}. There is also a sample project available at \cite{wiki-project} that shows an example of ViewController implementation. For my purposes I had to modify the sample implementation. The complete implementation for integration of Wikitude and React Native is found in Appendix: \nameref{apendix:integration}. 
@@ -1252,9 +1305,15 @@ To conclude Wikitude is not entirely suitable for using with React Native at the
 I have used npm package manager for taking care of the dependencies in the project. Among all the libraries I have used there are a few I would like to mention.
 
 \begin{itemize}
-	\item react-native-image-picker
-	\item react-native-autocomplete
-	\item react-native-maps
+	\item react-native-image-picker 
+	
+	This React Native module allows access to the phone's photo gallery and the camera. Also it sends the photo taken to the camera back to javascript in base64 format. \cite{image-picker} \item react-native-autocomplete 
+	
+	Neat module, wrapping around native autocomplete module. It shows a dropdown of suggested autocomplete matches as user types. It is also highly configurable, from styles to the actual funciton \textit{onTyping()}. It provides callback on every event fired by the native module. \cite{autocomplete}
+	
+	\item react-native-maps 
+	
+	The official facebook documentation for React Native offers this map as a better alternative to their own map implementation. This library offers different map manipulations such as controlling map events, tracking location, programatically changing region, using animated API and many others. \cite{maps}
 \end{itemize}
 
 
@@ -1262,38 +1321,120 @@ I have used npm package manager for taking care of the dependencies in the proje
 
 Web application is implemented using React and Redux, which has been already described in detail in the previous section \nameref{redux-section}.
 
+
+\subsection{Functionality}
+
+The main functionality is access through the menu sections: 3D gallery, My Gallery, Upload 3D and Statistics.
+
+\begin{itemize}
+\item 3D Gallery
+
+Web application allows user to browse through a common object gallery to choose 3d objects. Each object can be added to user's gallery.
+
+\item Upload 3D 
+
+The user can upload his own 3D images in the request format following the guidelines next to the upload form.
+
+\item My Gallery
+
+In this part the user can see which object were added to his gallery.
+
+\item Statistics
+
+The user can view statics for TOP 10 messaging country and city by accessing Statics in the menu. Furthermore the user can see statistics on his messages. How many times each message has been viewed and how many comments was left on each message, when was the last comment.
+\end{itemize}
+
+Screenshots of each part of the web application are found in the appendix.
 \subsection{Routing}
 
-I used \verb|redux-router| \cite{react-router} for handling the routing in the web application. It is a routing library for the React which allows to create user friendly, pretty urls without hashes and use browser history. Since React is view only framework all the routes work only if you start navigating from the index route. Basically you have to have the application loaded and then you are able to move around changing routes. Because when your route is missing the hash, which is usually present in javascript application routes, the request is sent to the server. Once you refresh any of the pages which is not the index page the route will not be found since there is no such route on the server. Therefore for React routing to function properly there is a need for a server. There are several options of how to accomplish that. 
+I used \verb|redux-router| \cite{react-router} for handling the routing in the web application. It is a routing library for the React which allows to create user friendly, pretty urls without hashes and use browser history.  Since React is view only framework the navigation is purely on the client side and all the routes work only if you start navigating from the index route. Basically you have to have the application loaded and then you are able to move around changing routes. When your route is missing the hash, which is usually present in javascript application routes, the request is sent to the server. Once you refresh any of the pages which is not the index page the route will not be found since there is no such route on the server unless you specifically created it. Therefore for React routing to function properly there is a need for a server. There are several options of how to accomplish that. 
 
 Firstly there is server side rendering option. The server will be serving complete html pages with data and everything needed. In the case of high load and data heavy websites it is a very good choice since it brings high performance and is also SEO friendly. However Google seems to be enhancing their indexing and crawling mechanisms in order to be able to crawl through javascript pages \cite{google-blog}. 
 
 Secondly a simple server which will serve as a proxy can be created. This option seemed more suitable for me. The web application is pretty basic so the performance increase from moving to server rendering will not be that essential. For the meantime for the purposes of my web application server with a proxy is enough.
 
-I implemented a simple express server which on all incoming requests redirest to index.html allowing the application to load and serve the user requested route. The example of the express server can be found in Appendix \ref{apx:react-server}
-
+I implemented a simple express server which on all incoming requests redirects to index.html allowing the application to load and serve the user requested route. The example of the express server can be found in Appendix \ref{apx:react-server}
 
 \subsection{Libraries used}
 
+Here are a few of the most helpful libraries I came across while working on the web application.
 
 \begin{itemize}
 	
-	\item react-bootstrap
+	\item react-bootstrap 
+	
+	Famous Bootsrap library wrapped with React Components. As the original Bootstrap library allows easy styling. \cite{react-boot}
 	\item react-masonry-component
-	\item react-d3
+	
+	Neat masonry library, which allows easy organizing of objects on the gird.  \cite{react-masonry}
+	\item react-d3 
+	
+	D3 chart utilities enabled for React. The library supports various types of charts, for instance: line chart, scatter chart, bar chart and area chart. \cite{react-d3}
 	
 \end{itemize}
 \section{Testing}
 
 
-\subsection{Unit testing}
-\subsection{Component}
-\subsection{Integration}
+\subsection{Unit tests}
+Unit testing is a type of automated testing focused on testing functionality of separate units of system in isolation. Targets of unit testing could be functions, React components and classes. Unit tests are tests closest to the code itself, they do not test any business logic but pure functionality. To make sure the tested code is isolated a developer mocks subcomponents and services used by the class/component he is testing. \cite{redux-tests} Unit tests help during development. If they are frequently written the developer can make bold changes to the code and easily check whether any of the previous functionality is broken by simply running the tests. Tests should be maintained and changed with the growing code base to make sure they have a solid code coverage.
 
+\subsubsection{Framework}
 
+When looking for a testing framework my main concern was to find one framework I could easily use for all the technologies involved in my project. I needed a framework with support for testing node, easily calling API endpoints, traversing React tree, accessing React's components, and being able to parse, and deal with React Native components.
+
+There is a plethora of javascript testing frameworks. However, not that many of them support or have a smooth way of working with React or React Native. The main issue with React Native is that it does not render html but native components. Therefore, each component needs to be mocked separately. While some like \verb|Text| are easy to mock others like \verb|Animate| leave you puzzled. Therefore, a big part of testing React Native is mocking which should not be the focus of the testing process. The developer needs to focus on the tests, not on mocks. Until recently the best way to test React and React Native was \verb|Jest| \cite{jest}. It is a very good choice for testing since it mocks everything automatically and the developer can focus on writing tests rather than creating mocks for components. I tried Jest. However, I was dissatisfied with its speed and after reading about possible other issues that might arise such as mocking everything, event the libraries you do not want to have mocked, I decided to look for another solution. \cite{redux-tests}
+
+The next testing framework I tried was Mocha \cite{mocha}. Mocha is not created for testing React but there are complimentary libraries which help with that. For instance \verb|enzyme| \cite{enzyme} was designed specifically for this purpose. \verb|Enzyme| is a javascript testing utility which allows traversing React DOM, assert and manipulate with React's components with ease. Moreover, recently \verb|react-native-mock| \cite{react-native-mock} came out, which is a mocker for all the React Native components written by Leland Richardson. Combining \verb|react-native-mock|,  \verb|mocha| and \verb|enzyme| provides a powerful setup with easy and elegant testing process.
+
+\subsubsection{Execution}
+
+Before running unit tests first of all make sure all the dev dependencies are installed. Test dependencies are included for the development environment only. That saves time when installing the project and disk space.
+
+\lstdefinestyle{nonumbers}
+{numbers=none}
+
+\begin{lstlisting}[language=C, style=nonumbers]
+ npm install --only=dev
+\end{lstlisting}
+
+To run unit tests in any of my applications simply run the following in the command line.
+
+\begin{lstlisting}[language=C, style=nonumbers]
+npm test
+\end{lstlisting}
+
+\subsection{Redux testing}
+
+Unit testing on its own is not enough to test the mobile and web applications. It is also important to test the data flow system I am using - Redux.
+Redux tests can be broken down into several categories: 
+\begin{itemize}
+	\item Action Tests
+	
+	These tests will make sure the action creators return the correct actions upon being called.
+	\item Reducer Tests
+	
+	These test take care of verifying the correct transition between states. The test checks if the reducer returns the correct state upon receiving dispatched action.
+	\item Middleware Tests
+	
+	The middleware in Redux flow is responsible for catching the dispatched action before it reaches reducer, performing some logic and then dispatching another action based on result of the performed logic. These tests are very important for both web and mobile applications since they are testing communication and data retrieval.
+\end{itemize}
+
+Redux testing will be performed using \verb|mocha|, \verb|enzyme| and \verb|react-native-mock|.
+
+\subsubsection{Execution}
+
+These tests are run the same way as the unit tests.
 
 \setsecnumdepth{part}
 \chapter{Conclusion}
+
+The main task of using only Javascript technologies for creating a messaging system with mobile application, web application and a server was accomplished. Both non functional requirements and functional requirements have been fulfilled. The system is highly performant due to the chosen technologies: \verb|node.js|, \verb|React| and \verb|React Native|. It would easily recover in case of a crash.  External processes such as \verb|supervisor| make sure the server and the queue consumers are restarted in case of failure. The server API is well documented with documentation easily accessible from the index page. Moreover, the system is scalable and is ready for high request load. Load balancer is configured to serve that purpose. In case of the server overloading it only takes a minute to add a new server to load balancer's configuration to scale the system. The system is easily extendable due to the nature of chosen implementation technologies.
+
+It must be also mentioned that Javascript is a very powerful technology, which is underestimated by many. It is flexible and has a lively community with many contributors. React has already transformed the way web front-end is made. React Native, an amazing creation of Facebook engineers, is definitely worth while and has a big future ahead of it. It revolutionises the way mobile applications are created and gives access to mobile development to wider audience. And last but not the least is \verb|node.js| which makes writting server side code pleasant.
+
+To conclude I would like to say that I am very happy for having an opportunity to explore these amazing technologies and to have a chance to create a solid, highly functional system using them.
+
+
 
 
 \bibliographystyle{iso690}
@@ -1305,19 +1446,257 @@ I implemented a simple express server which on all incoming requests redirest to
 \chapter{Acronyms}
 % \printglossaries
 \begin{description}
-	\item[GUI] Graphical user interface
-	\item[XML] Extensible markup language
+	\item[AR] Augmented Reality	
+	\item[DOM] Extensible markup language	
+	\item[JS] Javascript	
+	\item[MB] Megabyte	
+	\item[POI] Point of Interest
+	\item[SDK] Software Development Kit	
+	\item[SQL] Structured Query Language				
+	\item[3D] Three dimensional		
+	
 \end{description}
 
 \chapter{Installation guide}
 
 \section{Server}
+
+\subsection{Dependencies}
+\begin{itemize}
+  \item Npm
+ \item Redis
+  \item MongoDb
+  \item Supervisor 
+  \item Nginx
+\end{itemize}
+
+\noindent
+Start installing dependencies by running the following command.
+\begin{lstlisting}[language=C, style=nonumbers]
+ npm install
+\end{lstlisting}
+
+\noindent
+The rest of dependecies are available for download at their official websites.
+Configuration files for \verb|Supervisor| and \verb|Nginx| are provided in folder \verb|configuration| on the enclosed CD.
+
+\subsection{Execution}
+\noindent Start the Redis server.
+	\begin{lstlisting}[language=C, style=nonumbers]
+	 redis-server
+	\end{lstlisting}
+	
+\noindent Start the MongoDb in the server directory. It will be using directory data, in case u want mongo to use another directory, just specify it as the command argument.
+	\begin{lstlisting}[language=C, style=nonumbers]
+	 mongod --dbpath=data
+	\end{lstlisting}	
+	
+\noindent Now you configure supervisor, by adding both consumers and a server in the configuration. Run supervisor and specify the configuration file path. You can either configure your commands to run at the start or run the command line utility \verb|supervisorctl| and start them from there. If you used provided supervisor config the commands will run on start.
+	\begin{lstlisting}[language=C, style=nonumbers]
+	 supervisord --configuration=FILE
+	\end{lstlisting}	
+		
+\noindent The server is ready to take requests now. It is running on \url{http://localhost:3000}
+
+
 \section{Mobile application}
+
+\subsection{Dependencies}
+\begin{itemize}
+  \item XCode
+  \item Npm
+  \item Rnpm
+\end{itemize}
+\subsection{Execution}
+
+Install XCode from the official website or through the AppStore.
+\\~\\
+\noindent
+Start installing dependencies by running the following command.
+\begin{lstlisting}[language=C, style=nonumbers]
+ npm install
+\end{lstlisting} 
+
+\\~\\
+\noindent Link the external dependencies to the Objective C project in XCode.
+\begin{lstlisting}[language=C, style=nonumbers]
+ rnpm link
+\end{lstlisting} 
+
+\\~\\
+\noindent Open \verb|AppDelegate.m| from the \verb|ios| folder and make sure there is a correct address set for the \textit{jsCodeLocation}.
+
+\\~\\
+\noindent There is a folder \verb|/app/config| which has configuration for the server address. Set the correct address of the server in there.
+
+\\~\\
+\noindent Compile the project. You can either run it on the in-built simulator or on a connected device.
+
+
 \section{Web application}
+
+\subsection{Dependencies}
+\begin{itemize}
+  \item Npm
+\end{itemize}
+
+\subsection{Execution}
+\noindent
+Start installing dependencies by running the following command.
+\begin{lstlisting}[language=C, style=nonumbers]
+ npm install
+\end{lstlisting}
+
+\\~\\
+\noindent The web application needs to have a server started to run. In folder \verb|server| in the web application implementation run the following command.
+\begin{lstlisting}[language=C, style=nonumbers]
+ npm run
+\end{lstlisting}
+\noindent An express server is ready to take requests now. 
+
+\noindent In your browser navigate to \url{http://localhost:3001}. You should be able to interact with the web application now.
+
+\\~\\
+\noindent There is a folder \verb|/app/config| which has configuration for the server address. In case the web and the server will not be running on the same machine that configuration will have to be replaced with the actual server address.
+
+\chapter{Mobile application screenshots}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{assets/mobile_screens/login.png}}
+	\caption{Mobile application. Login}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/register.png}}
+	\caption{Mobile application. Registration}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/map.png}}
+	\caption{Mobile application. Messages map}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/add_text_message.png}}
+	\caption{Mobile application. Adding a text message}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/adding_image.png}}
+	\caption{Mobile application. Adding image to text message}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/message_with_image.png}}
+	\caption{Mobile application. Message with image and text}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/3d_message.png}}
+	\caption{Mobile application. 3D Message option chosen}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/object_gallery.png}}
+	\caption{Mobile application. User's object gallery. It is accessible when attaching an object to the message.}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/3d_message_view.png}}
+	\caption{Mobile application. 3D Message thumbnail preview}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/menu.png}}
+	\caption{Mobile application. Menu}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/my_messages.png}}
+	\caption{Mobile application. My messages}
+\end{figure}
+
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/profile.png}}
+	\caption{Mobile application. Profile}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/detail.png}}
+	\caption{Mobile application. Message detail}
+\end{figure}
+
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/mobile_screens/3d_detail.png}}
+	\caption{Mobile application. 3D Message detail. Augmented Reality starts when "see object" button is tapped.}
+\end{figure}
+
+
+
+
 
 \chapter{Web application screens}
 
-\chapter{Mobile application sreens}
+Web application is made as a complimentary portal mainly to allow user to choose 3d objects from the common gallery, add these obejcts to his gallery or upload his own 3d objects, see information about his messages and view statistics by country and city.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/web_screens/login.png}}
+	\caption{Web application. Login}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/web_screens/index.png}}
+	\caption{Web application. Index page with messages}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/web_screens/3d_gallery.png}}
+	\caption{Web application. 3D gallery with objects}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/web_screens/my_gallery.png}}
+	\caption{Web application. User's 3d gallery with objects}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{assets/web_screens/stats.png}}
+	\caption{Web application. Statistics}
+\end{figure}
 
 \chapter{Supervisor configuration}
 \label{apx:supervisor}
@@ -1423,7 +1802,7 @@ In order to integrate Wikitude and React Native I implemented the following file
 
 @interface ViewController : UIViewController
 
--(UIView*)start;
+@property (nonatomic, assign) NSString *objSrc;
 
 @end
 
@@ -1433,29 +1812,51 @@ In order to integrate Wikitude and React Native I implemented the following file
 //  ViewController.m
 
 #import "ViewController.h"
+
+#import "View.h"
 #import <WikitudeSDK/WikitudeSDK.h>
 /* Wikitude SDK debugging */
 #import <WikitudeSDK/WTArchitectViewDebugDelegate.h>
 
 @interface ViewController () <WTArchitectViewDelegate, WTArchitectViewDebugDelegate>
 
-/* Add a strong property to the main Wikitude SDK component */
-@property (nonatomic, strong) WTArchitectView *architectView;
+/* Add a strong property to the main Wikitude SDK component, the WTArchitectView */
+@property (nonatomic, strong) WTArchitectView               *architectView;
 
 /* And keep a weak property to the navigation object which represents the loading status of your Architect World */
-@property (nonatomic, weak) WTNavigation *architectWorldNavigation;
+@property (nonatomic, weak) WTNavigation                    *architectWorldNavigation;
 
 @end
 
-
 @implementation ViewController
+
 
 - (void)dealloc
 {
+  /* Remove this view controller from the default Notification Center so that it can be released properly */
+  
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (UIView*)start {
+- (void)loadView
+{
+  View *_view = [[View alloc] init];
+  self.view = _view;
+}
+
+
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  // Do any additional setup after loading the view, typically from a nib.
+  
+  /* It might be the case that the device which is running the application does not fulfil all Wikitude SDK hardware requirements.
+   To check for this and handle the situation properly, use the -isDeviceSupportedForRequiredFeatures:error class method.
+   
+   Required features specify in more detail what your Architect World intends to do. Depending on your intentions, more or less devices might be supported.
+   e.g. an iPod Touch is missing some hardware components so that Geo augmented reality does not work, but 2D tracking does.
+   
+   NOTE: On iOS, an unsupported device might be an iPhone 3GS for image recognition or an iPod Touch 4th generation for Geo augmented reality.
+   */
   NSError *deviceSupportError = nil;
 
   if ( [WTArchitectView isDeviceSupportedForRequiredFeatures:WTFeature_Geo error:&deviceSupportError] ) {
@@ -1466,16 +1867,15 @@ In order to integrate Wikitude and React Native I implemented the following file
     self.architectView.debugDelegate = self;
     
     /* Use the -setLicenseKey method to unlock all Wikitude SDK features that you bought with your license. */
-    [self.architectView setLicenseKey:@"licenceKey"];
+    [self.architectView setLicenseKey:@"YOUR_KEY"];
     
     /* The Architect World can be loaded independently from the WTArchitectView rendering.
      
      NOTE: The architectWorldNavigation property is assigned at this point. The navigation object is valid until another Architect World is loaded.
      */
     
-    NSURL *baseURL = [NSURL URLWithString:(@"http://url-to-your/architect-world/index.html")];
+    NSURL *baseURL = [NSURL URLWithString:(@"http://192.168.0.3:3000/ArchitectWorld/index.html")];
     self.architectWorldNavigation = [self.architectView loadArchitectWorldFromURL:baseURL withRequiredFeatures:WTFeature_Geo];
-    
     /* Because the WTArchitectView does some OpenGL rendering, frame updates have to be suspended and resumend when the application changes it's active state.
      Here, UIApplication notifications are used to respond to the active state changes.
      
@@ -1508,25 +1908,25 @@ In order to integrate Wikitude and React Native I implemented the following file
     NSDictionary *views = NSDictionaryOfVariableBindings(_architectView);
     [self.view addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"|[_architectView]|" options:0 metrics:nil views:views] ];
     [self.view addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_architectView]|" options:0 metrics:nil views:views] ];
-    return self.view;
   }
   else {
     NSLog(@"This device is not supported. Show either an alert or use this class method even before presenting the view controller that manages the WTArchitectView. Error: %@", [deviceSupportError localizedDescription]);
-    return nil;
   }
 }
 
 #pragma mark - View Lifecycle
 - (void)viewWillAppear:(BOOL)animated {
-  NSLog(@"%s", "will appear");
+  
   [super viewWillAppear:animated];
+  View* test_view = [self view];
+  NSString *src = [NSString stringWithFormat:@"%@%@%@%@%@", @"x(",@"\'" ,[test_view objSrc], @"\'", @");"];
+  [self.architectView callJavaScript:(@"@a", src)];
   
   /* WTArchitectView rendering is started once the view controllers view will appear */
   [self startWikitudeSDKRendering];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-  NSLog(@"%s", "will dissappear");
   [super viewDidDisappear:animated];
   
   /* WTArchitectView rendering is stopped once the view controllers view did disappear */
@@ -1562,12 +1962,13 @@ In order to integrate Wikitude and React Native I implemented the following file
   
   /* To check if the WTArchitectView is currently rendering, the isRunning property can be used */
   if ( ![self.architectView isRunning] ) {
-    NSLog(@"architect running. started");
     /* To start WTArchitectView rendering and control the startup phase, the -start:completion method can be used */
     [self.architectView start:^(WTStartupConfiguration *configuration) {
       
       /* Use the configuration object to take control about the WTArchitectView startup phase */
       /* You can e.g. start with an active front camera instead of the default back camera */
+      
+//       configuration.captureDevicePosition = AVCaptureDevicePositionFront;
       
     } completion:^(BOOL isRunning, NSError *error) {
       
@@ -1625,6 +2026,7 @@ In order to integrate Wikitude and React Native I implemented the following file
   NSLog(@"WTArchitectView encountered an internal error '%@'", [error localizedDescription]);
 }
 
+
 @end
 \end{lstlisting}
 
@@ -1645,15 +2047,18 @@ In order to integrate Wikitude and React Native I implemented the following file
 
 #import "ARViewManager.h"
 #import "ViewController.h"
+#import "View.h"
 
 @implementation ARViewManager
 
 RCT_EXPORT_MODULE()
 
+RCT_EXPORT_VIEW_PROPERTY(objSrc, NSString);
+
 - (UIView *)view
 {
-    ViewController* controller = [[ViewController alloc] init];
-    return [controller start];
+  ViewController *_controller = [[ViewController alloc] init];
+  return _controller.view;
 }
 
 @end
